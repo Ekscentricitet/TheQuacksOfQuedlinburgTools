@@ -1,5 +1,5 @@
 <template>
-    <ChipComponent v-for="(chip, index) in chips" :key="index" :chip="chip" />
+    <ChipComponent v-for="(chip, index) in chips" :key="index" v-model="chips[index]" />
 </template>
 
 <script setup lang="ts">
@@ -8,10 +8,10 @@ import { ref, onMounted } from 'vue';
 import chipsData from 'assets/chips.json';
 import Chip from 'components/models/chip';
 
-const chips = ref<Chip[]>();
+const chips = ref<Chip[]>([]);
 
 onMounted(() => {
-    chips.value = chipsData;
+    chips.value = chipsData.map(chip => Chip.fromDto(chip));
 });
 </script>
 

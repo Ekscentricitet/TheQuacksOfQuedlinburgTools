@@ -1,11 +1,12 @@
 [
-    { "name": "cherry", "fullName": "Cherry Bomb" },
-    { "name": "spider", "fullName": "Garden Spider" },
-    { "name": "pumpkin", "fullName": "Pumpkin" },
-    { "name": "skull", "fullName": "Crow Scull" },
-    { "name": "moth", "fullName": "African Death's Head Hawkmoth" },
-    { "name": "mushroom", "fullName": "Toadstool" },
-    { "name": "ghost", "fullName": "Ghost’s breath" },
-    { "name": "mandrake", "fullName": "Mandrake" }
-  ]
-  
+  { "name": "cherry1", "startingNumber": 4, "activeRound": 1, "fullName": "Cherry Bomb 1", "icon": "mdi-numeric-1-circle", "color": "cherry" },
+  { "name": "cherry2", "startingNumber": 2, "activeRound": 1, "fullName": "Cherry Bomb 2", "icon": "mdi-numeric-2-circle", "color": "cherry" },
+  { "name": "cherry3", "startingNumber": 1, "activeRound": 1, "fullName": "Cherry Bomb 3", "icon": "mdi-numeric-3-circle", "color": "cherry" },
+  { "name": "spider", "startingNumber": 1, "activeRound": 1, "fullName": "Garden Spider", "icon": "mdi-spider", "color": "spider" },
+  { "name": "pumpkin", "startingNumber": 1, "activeRound": 1, "fullName": "Pumpkin", "icon": "mdi-pumpkin", "color": "pumpkin" },
+  { "name": "skull", "startingNumber": 0, "activeRound": 1, "fullName": "Crow Scull", "icon": "mdi-skull", "color": "skull" },
+  { "name": "moth", "startingNumber": 0, "activeRound": 1, "fullName": "African Death's Head Hawkmoth", "icon": "mdi-butterfly", "color": "moth" },
+  { "name": "mushroom", "startingNumber": 0, "activeRound": 1, "fullName": "Toadstool", "icon": "mdi-mushroom", "color": "mushroom" },
+  { "name": "ghost", "startingNumber": 0, "activeRound": 2, "fullName": "Ghost's breath", "icon": "mdi-ghost", "color": "ghost" },
+  { "name": "mandrake", "startingNumber": 0, "activeRound": 3, "fullName": "Mandrake", "icon": "mdi-human-child", "color": "mandrake" }
+]

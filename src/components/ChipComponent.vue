@@ -1,20 +1,29 @@
 <template>
     <q-card>
-        <q-chip :color="chip.name" text-color="white">{{ chip.fullName }}</q-chip>
+        <q-icon :color="chip.color" :name="chip.icon" size="3em">
+        </q-icon>
+        <q-btn @click="decrement" dense flat icon="remove" />
+        {{ chip.currentNumber }}
+        <q-btn @click="increment" dense flat icon="add" />
     </q-card>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import Chip from './models/chip';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = defineProps({
-    chip: {
-        type: Chip,
-        required: true
-    }
+const chip = defineModel<Chip>({
+    required: true
 });
+
+const increment = () => {
+    chip.value.currentNumber++;
+};
+
+const decrement = () => {
+    if (chip.value.currentNumber > 0) {
+        chip.value.currentNumber--;
+    }
+};
 </script>
 
 <style></style>
