@@ -1,1 +1,21 @@
-// app global css in SCSS form
+$colors: (
+  cherry: #aaaaa8,
+  spider: #4b9f49,
+  pumpkin: #fe9c40,
+  skull: #207992,
+  moth: #293146,
+  mushroom: #cb200b,
+  ghost: #9b2f8c,
+  mandrake: #f8ca0c
+);
+
+// Loop through the colors map to generate utility classes
+@each $name, $value in $colors {
+  .text-#{$name} {
+    color: $value !important;
+  }
+
+  .bg-#{$name} {
+    background: $value !important;
+  }
+}
