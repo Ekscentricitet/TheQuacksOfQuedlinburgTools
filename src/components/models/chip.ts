@@ -8,11 +8,12 @@ export default class Chip {
         public fullName: string,
         public icon: string,
         public color: string,
-        public currentNumber: number
+        public currentNumber: number,
+        public leftInBag: number
     ) {
     }
 
     static fromDto(dto: ChipDto){
-        return new Chip(dto.name, dto.startingNumber, dto.activeRound, dto.fullName, dto.icon, dto.color, dto.startingNumber)
+        return new Chip(dto.name, dto.startingNumber, dto.activeRound, dto.fullName, dto.icon, dto.color, dto.startingNumber, dto.startingNumber)
     }
 }
