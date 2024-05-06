@@ -4,7 +4,7 @@
     <q-btn @click="reset" class="q-ma-xs">Reset</q-btn>
     <div v-if="drawnChips.length > 0">
       Drawn chips:
-      <q-chip v-for="drawnChip in drawnChips" :key="drawnChip.name">
+      <q-chip v-for="drawnChip in drawnChips" :key="drawnChip.name" color="grey-2">
         <q-icon :name="drawnChip.icon" :color="drawnChip.color" />
         <q-icon :name="drawnChip.numberIcon" :color="drawnChip.color" />
       </q-chip>
