@@ -22,7 +22,8 @@ export default class Chip {
 
       if (dto.hasMultiple) {
         chips.push(this.fromDto(dto, 2));
-        chips.push(this.fromDto(dto, 4));
+        if (dto.name == 'cherry') chips.push(this.fromDto(dto, 3));
+        else chips.push(this.fromDto(dto, 4));
       }
     });
 
