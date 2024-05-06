@@ -5,6 +5,9 @@ on:
     branches:
       - 'release_*.*.*'
 
+permissions:
+  contents: write
+
 jobs:
   build_and_release:
     name: Build and Release
@@ -59,5 +62,3 @@ jobs:
             Release of ${{ steps.extract_version.outputs.version }}
           draft: false
           prerelease: false
-          permissions:
-            contents: write
