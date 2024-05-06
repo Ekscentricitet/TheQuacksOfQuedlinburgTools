@@ -1,0 +1,59 @@
+name: Build and Release Quasar Android App
+
+on:
+  push:
+    branches:
+      - 'release_*.*.*'
+
+jobs:
+  build_and_release:
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract release version from branch name
+        id: extract_version
+        run: echo "::set-output name=version::${GITHUB_REF#refs/heads/release_}"
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Quasar CLI
+        run: npm install -g @quasar/cli
+
+      - name: Install Cordova
+        run: npm install -g cordova
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Android App
+        run: quasar build -m cordova -T android
+
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Build APK
+        run: |
+          cd src-cordova
+          cordova build android --release --no-telemetry
+
+      - name: Release APK
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            src-cordova/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          name: Release ${{ steps.extract_version.outputs.version }}
+          tag_name: v${{ steps.extract_version.outputs.version }}
+          body: |
+            Release of ${{ steps.extract_version.outputs.version }}
+          draft: false
+          prerelease: false
