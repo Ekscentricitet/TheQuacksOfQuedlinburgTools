@@ -1,6 +1,9 @@
 name: Build and Release Quasar Android App
 
-on: create
+on:
+  push:
+    branches:
+      - 'releases_*.*.*'
 
 permissions:
   contents: write
@@ -9,8 +12,6 @@ jobs:
   build_and_release:
     name: Build and Release
     runs-on: ubuntu-latest
-
-    if: startsWith(github.ref, 'refs/heads/release_')
 
     steps:
       - name: Extract release version from branch name
