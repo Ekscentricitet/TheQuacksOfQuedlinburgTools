@@ -1,10 +1,10 @@
 <template>
   <q-card>
-    <q-icon :color="chip.color" :name="chip.icon" size="3em">
-    </q-icon>
-    <q-btn @click="decrement" dense flat icon="remove" />
+    <q-icon :color="chip.color" :name="chip.icon" size="1.5em" />
+    <q-icon :color="chip.color" :name="chip.numberIcon" size="1.5em" />
+    <q-btn @click="decrement" dense flat icon="remove" size="10px" />
     {{ chip.currentNumber }}
-    <q-btn @click="increment" dense flat icon="add" />
+    <q-btn @click="increment" dense flat icon="add" size="10px" />
   </q-card>
 </template>
 

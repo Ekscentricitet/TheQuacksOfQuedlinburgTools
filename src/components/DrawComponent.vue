@@ -1,12 +1,15 @@
 <template>
-  <q-card>
-    <q-btn @click="draw">Draw</q-btn>
-    <q-btn @click="reset">Reset</q-btn>
+  <div>
+    <q-btn @click="draw" class="q-ma-xs">Draw</q-btn>
+    <q-btn @click="reset" class="q-ma-xs">Reset</q-btn>
     <div v-if="drawnChips.length > 0">
-      Drawn chips: <q-icon v-for="drawnChip in drawnChips" :key="drawnChip.name" :name="drawnChip.icon"
-        :color="drawnChip.color"></q-icon>
+      Drawn chips:
+      <q-chip v-for="drawnChip in drawnChips" :key="drawnChip.name">
+        <q-icon :name="drawnChip.icon" :color="drawnChip.color" />
+        <q-icon :name="drawnChip.numberIcon" :color="drawnChip.color" />
+      </q-chip>
     </div>
-  </q-card>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -32,7 +35,7 @@ function draw() {
 
   drawnChips.value.push(newChip);
 
-  const chipType = chips.value.find(chip => chip.name === newChip.name) as Chip;
+  const chipType = chips.value.find(chip => chip.name === newChip.name && chip.value == newChip.value) as Chip;
   chipType.leftInBag -= 1;
 }
 
