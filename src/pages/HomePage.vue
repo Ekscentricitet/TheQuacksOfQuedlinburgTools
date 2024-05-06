@@ -1,7 +1,8 @@
 <template>
   <template v-for="(group, index) in groupedItems" :key="index">
     <div class="row">
-      <ChipComponent v-for="chip in group.items" :key="chip.name" v-model="chips[getElementIndex(chip)]" />
+      <ChipComponent v-for="chip in group.items" :key="chip.name" v-model="chips[getElementIndex(chip)]"
+        class="q-ma-xs" />
     </div>
   </template>
   <DrawComponent v-model="chips"></DrawComponent>
