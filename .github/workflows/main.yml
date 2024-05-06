@@ -1,7 +1,7 @@
 name: Build and Release Quasar Android App
 
 on:
-  push:
+  create:
     branches:
       - 'release_*.*.*'
 
