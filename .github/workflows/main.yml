@@ -3,7 +3,7 @@ name: Build and Release Quasar Android App
 on:
   push:
     branches:
-      - 'releases_*.*.*'
+      - 'release_*.*.*'
 
 permissions:
   contents: write
