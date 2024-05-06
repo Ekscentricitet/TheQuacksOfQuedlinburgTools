@@ -1,6 +1,6 @@
 <template>
-    <ChipComponent v-for="(chip, index) in chips" :key="index" v-model="chips[index]" />
-    <DrawComponent v-model="chips"></DrawComponent>
+  <ChipComponent v-for="(chip, index) in chips" :key="index" v-model="chips[index]" />
+  <DrawComponent v-model="chips"></DrawComponent>
 </template>
 
 <script setup lang="ts">
@@ -13,7 +13,7 @@ import Chip from 'components/models/chip';
 const chips = ref<Chip[]>([]);
 
 onMounted(() => {
-    chips.value = chipsData.map(chip => Chip.fromDto(chip));
+  chips.value = Chip.fromDtos(chipsData);
 });
 </script>
 

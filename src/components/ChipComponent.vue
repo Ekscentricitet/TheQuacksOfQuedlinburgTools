@@ -1,7 +1,7 @@
 <template>
   <q-card>
-    <q-icon :color="chip.color" :name="chip.icon" size="3em">
-    </q-icon>
+    <q-icon :color="chip.color" :name="chip.icon" size="3em" />
+    <q-icon :color="chip.color" :name="chip.numberIcon" size="2em" />
     <q-btn @click="decrement" dense flat icon="remove" />
     {{ chip.currentNumber }}
     <q-btn @click="increment" dense flat icon="add" />
