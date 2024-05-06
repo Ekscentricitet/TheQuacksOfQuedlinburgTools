@@ -52,7 +52,8 @@ export default class Chip {
       if (value == 1) startingNumber = 4;
       else if (value == 2) startingNumber = 2;
       else startingNumber = 1;
-    else if (dto.name == 'spider' || dto.name == 'pumpkin') startingNumber = 1;
+    else if (dto.name == 'spider' && value == 1) startingNumber = 1;
+    else if (dto.name == 'pumpkin') startingNumber = 1;
     return startingNumber;
   }
 }
