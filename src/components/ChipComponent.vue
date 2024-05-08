@@ -3,26 +3,26 @@
     <q-icon :color="chip.color" :name="chip.icon" size="1.5em" />
     <q-icon :color="chip.color" :name="chip.numberIcon" size="1.5em" />
     <q-btn @click="decrement" dense flat icon="remove" size="10px" />
-    {{ chip.currentNumber }}
+    {{ chip.quantity }}
     <q-btn @click="increment" dense flat icon="add" size="10px" />
   </q-card>
 </template>
 
 <script setup lang="ts">
-import Chip from './models/chip';
+import ChipQuantity from 'components/models/chipQuantity';
 
-const chip = defineModel<Chip>({
+const chip = defineModel<ChipQuantity>({
   required: true
 });
 
 const increment = () => {
-  chip.value.currentNumber++;
+  chip.value.quantity++;
   chip.value.leftInBag++;
 };
 
 const decrement = () => {
-  if (chip.value.currentNumber > 0) {
-    chip.value.currentNumber--;
+  if (chip.value.quantity > 0) {
+    chip.value.quantity--;
     chip.value.leftInBag--;
   }
 };

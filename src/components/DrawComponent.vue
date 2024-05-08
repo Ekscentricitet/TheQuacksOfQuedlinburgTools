@@ -14,28 +14,28 @@
 
 <script setup lang="ts">
 import Chip from './models/chip';
-import ChipUnit from './models/chipUnit';
 import { ref } from 'vue';
+import ChipQuantity from './models/chipQuantity';
 
-const chips = defineModel<Chip[]>({
+const playerChips = defineModel<ChipQuantity[]>({
   required: true
 });
 
-const drawnChips = ref<ChipUnit[]>([]);
+const drawnChips = ref<Chip[]>([]);
 
 function draw() {
-  const units = chips.value
+  const chips = playerChips.value
     .filter(chip => chip.leftInBag > 0)
-    .map(chip => ChipUnit.fromChip(chip));
+    .map(chip => chip as Chip);
 
-  const newChip = getRandomChip(units);
+  const drawnChip = getRandomChip(chips);
 
-  if (!newChip)
+  if (!drawnChip)
     return;
 
-  drawnChips.value.push(newChip);
+  drawnChips.value.push(drawnChip);
 
-  const chipType = chips.value.find(chip => chip.name === newChip.name && chip.value == newChip.value) as Chip;
+  const chipType = playerChips.value.find(chip => chip.name === drawnChip.name && chip.value == drawnChip.value) as ChipQuantity;
   chipType.leftInBag -= 1;
 }
 
@@ -46,8 +46,8 @@ function getRandomChip<ChipUnit>(chipsUnits: ChipUnit[]) {
 }
 
 function reset() {
-  chips.value.map(chip => {
-    chip.leftInBag = chip.currentNumber
+  playerChips.value.map(chip => {
+    chip.leftInBag = chip.quantity
   });
   drawnChips.value = [];
 }

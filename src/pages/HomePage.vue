@@ -1,44 +1,22 @@
 <template>
-  <template v-for="(group, index) in groupedItems" :key="index">
-    <div class="row">
-      <ChipComponent v-for="chip in group.items" :key="chip.name" v-model="chips[getElementIndex(chip)]"
-        class="q-ma-xs" />
-    </div>
-  </template>
-  <DrawComponent v-model="chips"></DrawComponent>
+  <ChipsDisplay v-model="player.bag.chips as ChipQuantity[]"></ChipsDisplay>
+  <DrawComponent v-model="player.bag.chips as ChipQuantity[]"></DrawComponent>
 </template>
 
 <script setup lang="ts">
-import ChipComponent from 'components/ChipComponent.vue'
 import DrawComponent from 'components/DrawComponent.vue'
-import { ref, onMounted, computed } from 'vue';
-import chipsData from 'assets/chips.json';
-import Chip from 'components/models/chip';
+import { ref, onMounted } from 'vue';
+import Player from 'src/components/models/player';
+import ChipsDisplay from 'src/components/ChipsDisplay.vue';
+import Chip from 'src/components/models/chip';
+import ChipQuantity from 'src/components/models/chipQuantity';
 
-const chips = ref<Chip[]>([]);
+const player = ref<Player>(new Player);
 
 onMounted(() => {
-  chips.value = Chip.fromDtos(chipsData);
+  player.value = new Player();
 });
 
-const groupedItems = computed(() => {
-  const groups: Record<string, Chip[]> = {};
-  chips.value.forEach(chip => {
-    const name = chip.name;
-    if (!groups[name]) {
-      groups[name] = [];
-    }
-    groups[name].push(chip);
-  });
-  return Object.keys(groups).map(name => ({
-    name,
-    items: groups[name],
-  }));
-});
-
-const getElementIndex = (chip: Chip) => {
-  return chips.value.findIndex(item => item.name === chip.name && item.value == chip.value);
-};
 </script>
 
 <style></style>
