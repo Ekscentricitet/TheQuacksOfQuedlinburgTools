@@ -26,7 +26,10 @@ const drawnChips = ref<Chip[]>([]);
 function draw() {
   const chips = playerChips.value
     .filter(chip => chip.leftInBag > 0)
-    .map(chip => chip as Chip);
+    .flatMap(chip => {
+      const numberOfObjects = chip.leftInBag;
+      return Array.from({ length: numberOfObjects }, () => chip as Chip);
+    });
 
   const drawnChip = getRandomChip(chips);
 
@@ -41,6 +44,7 @@ function draw() {
 
 function getRandomChip<ChipUnit>(chipsUnits: ChipUnit[]) {
   if (chipsUnits.length === 0) return undefined;
+  console.log(chipsUnits);
   const randomIndex = Math.floor(Math.random() * chipsUnits.length);
   return chipsUnits[randomIndex];
 }
