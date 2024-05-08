@@ -6,7 +6,7 @@
           <ChipComponent v-if="chip.activeRound <= round" class="q-ma-xs" :show-number="true"
             v-model="chips[getElementIndex(chip)]" :allow-increment="!chip.boughtThisRound && boughtThisRound < 2"
             :allow-decrement="chip.boughtThisRound" :allow-value-update="chip.name != 'cherry'"
-            @incremented="boughtThisRound++" @decremented="boughtThisRound--" />
+            @incremented="handleIncremented" @decremented="handleDecremented" />
         </template>
       </div>
       <q-separator inset />
@@ -26,6 +26,7 @@ const boughtThisRound = ref(0);
 
 onMounted(() => {
   boughtThisRound.value = 0;
+  changeBoughtStatus(undefined, false);
 })
 
 defineProps({
@@ -37,4 +38,23 @@ const groupedItems = GameChips.groupChips(chips.value);
 const getElementIndex = (chip: Chip) => {
   return chips.value.findIndex(item => item.name === chip.name && item.value == chip.value);
 };
+
+function handleIncremented(chip: ChipQuantity) {
+  changeBoughtStatus(chip.name, true);
+  boughtThisRound.value++;
+}
+
+function handleDecremented(chip: ChipQuantity) {
+  changeBoughtStatus(chip.name, false);
+  boughtThisRound.value--;
+}
+
+function changeBoughtStatus(name: string | undefined, status: boolean) {
+  chips.value = chips.value.map(entry => {
+    if (name == undefined || entry.name == name) {
+      entry.boughtThisRound = status;
+    }
+    return entry;
+  });
+}
 </script>

@@ -37,7 +37,7 @@ const increment = () => {
   chip.value.quantity++;
   chip.value.leftInBag++;
   chip.value.boughtThisRound = true;
-  emits('incremented');
+  emits('incremented', chip.value);
 };
 
 const decrement = () => {
@@ -45,7 +45,7 @@ const decrement = () => {
     chip.value.quantity--;
     chip.value.leftInBag--;
     chip.value.boughtThisRound = false;
-    emits('decremented');
+    emits('decremented', chip.value);
   }
 };
 </script>
