@@ -1,29 +1,51 @@
 <template>
   <q-card>
-    <q-icon :color="chip.color" :name="chip.icon" size="1.5em" />
-    <q-icon :color="chip.color" :name="chip.numberIcon" size="1.5em" />
-    <q-btn @click="decrement" dense flat icon="remove" size="10px" />
-    {{ chip.currentNumber }}
-    <q-btn @click="increment" dense flat icon="add" size="10px" />
+    <div class="row items-center">
+      <div class="column">
+        <q-icon :color="chip.color" :name="chip.icon" size="3vh" />
+        <q-icon :color="chip.color" :name="chip.numberIcon" size="3vh" />
+      </div>
+      <div v-if="showNumber" class="row">
+        <q-btn v-if="allowValueUpdate" :disabled="!allowDecrement" @click="decrement" dense flat icon="remove"
+          size="1vh" />
+        <q-chip size="1.5vh">{{ chip.quantity }}</q-chip>
+        <q-btn v-if="allowValueUpdate" :disabled="!allowIncrement" @click="increment" dense flat icon="add"
+          size="1vh" />
+      </div>
+    </div>
+
   </q-card>
 </template>
 
 <script setup lang="ts">
-import Chip from './models/chip';
+import ChipQuantity from './models/Chip/chipQuantity';
 
-const chip = defineModel<Chip>({
+const chip = defineModel<ChipQuantity>({
   required: true
 });
 
+defineProps({
+  showNumber: Boolean,
+  allowValueUpdate: Boolean,
+  allowIncrement: Boolean,
+  allowDecrement: Boolean,
+})
+
+const emits = defineEmits(['incremented', 'decremented']);
+
 const increment = () => {
-  chip.value.currentNumber++;
+  chip.value.quantity++;
   chip.value.leftInBag++;
+  chip.value.boughtThisRound = true;
+  emits('incremented', chip.value);
 };
 
 const decrement = () => {
-  if (chip.value.currentNumber > 0) {
-    chip.value.currentNumber--;
+  if (chip.value.quantity > 0) {
+    chip.value.quantity--;
     chip.value.leftInBag--;
+    chip.value.boughtThisRound = false;
+    emits('decremented', chip.value);
   }
 };
 </script>

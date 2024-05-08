@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <q-btn @click="draw" class="q-ma-xs">Draw</q-btn>
-    <q-btn @click="reset" class="q-ma-xs">Reset</q-btn>
-    <div v-if="drawnChips.length > 0">
-      Drawn chips:
+  <div class="column items-center q-pa-sm">
+    <div>
+      <q-btn v-if="!areChipsOver || isResetAllowed" @click="draw" class="q-ma-xs">Draw</q-btn>
+      <q-btn v-if="isResetAllowed" @click="reset" class="q-ma-xs">Reset</q-btn>
+    </div>
+    <div class="q-pa-md">
+      <q-chip>Cherry Sum: {{ cherrySum }}</q-chip>
       <q-chip v-for="drawnChip in drawnChips" :key="drawnChip.name" color="grey-2">
         <q-icon :name="drawnChip.icon" :color="drawnChip.color" />
         <q-icon :name="drawnChip.numberIcon" :color="drawnChip.color" />
@@ -13,44 +15,67 @@
 </template>
 
 <script setup lang="ts">
-import Chip from './models/chip';
-import ChipUnit from './models/chipUnit';
-import { ref } from 'vue';
+import Chip from './models/Chip/chip';
+import { computed, onMounted, ref } from 'vue';
+import ChipQuantity from './models/Chip/chipQuantity';
 
-const chips = defineModel<Chip[]>({
+const playerChips = defineModel<ChipQuantity[]>({
   required: true
 });
 
-const drawnChips = ref<ChipUnit[]>([]);
+defineProps({
+  isResetAllowed: { type: Boolean, default: true }
+})
+
+const drawnChips = ref<Chip[]>([]);
+const areChipsOver = ref(false);
+
+onMounted(() => {
+  reset();
+})
 
 function draw() {
-  const units = chips.value
+  const chips = playerChips.value
     .filter(chip => chip.leftInBag > 0)
-    .map(chip => ChipUnit.fromChip(chip));
+    .flatMap(chip => {
+      const numberOfObjects = chip.leftInBag;
+      return Array.from({ length: numberOfObjects }, () => chip as Chip);
+    });
 
-  const newChip = getRandomChip(units);
+  const drawnChip = getRandomChip(chips);
 
-  if (!newChip)
+  if (!drawnChip)
     return;
 
-  drawnChips.value.push(newChip);
+  drawnChips.value.push(drawnChip);
 
-  const chipType = chips.value.find(chip => chip.name === newChip.name && chip.value == newChip.value) as Chip;
+  const chipType = playerChips.value.find(chip => chip.name === drawnChip.name && chip.value == drawnChip.value) as ChipQuantity;
   chipType.leftInBag -= 1;
 }
 
 function getRandomChip<ChipUnit>(chipsUnits: ChipUnit[]) {
-  if (chipsUnits.length === 0) return undefined;
+  if (chipsUnits.length === 0) {
+    areChipsOver.value = true;
+    return undefined;
+  }
   const randomIndex = Math.floor(Math.random() * chipsUnits.length);
   return chipsUnits[randomIndex];
 }
 
 function reset() {
-  chips.value.map(chip => {
-    chip.leftInBag = chip.currentNumber
+  playerChips.value.map(chip => {
+    chip.leftInBag = chip.quantity
   });
   drawnChips.value = [];
 }
+
+const cherrySum = computed(() => {
+  const drawnCherries = drawnChips.value
+    .filter(chip => chip.name == 'cherry')
+  let sum = 0;
+  drawnCherries.forEach(cherry => sum += cherry.value);
+  return sum;
+})
 </script>
 
 <style></style>
