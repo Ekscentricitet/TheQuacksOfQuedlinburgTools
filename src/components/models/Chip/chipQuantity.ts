@@ -3,6 +3,7 @@ import Chip from './chip';
 export default class ChipQuantity extends Chip {
   public quantity: number;
   public leftInBag: number;
+  public boughtThisRound = false;
 
   constructor(...chipParams: ConstructorParameters<typeof Chip>) {
     super(...chipParams);

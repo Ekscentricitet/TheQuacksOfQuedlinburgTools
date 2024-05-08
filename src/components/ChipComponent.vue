@@ -31,15 +31,21 @@ defineProps({
   allowDecrement: Boolean,
 })
 
+const emits = defineEmits(['incremented', 'decremented']);
+
 const increment = () => {
   chip.value.quantity++;
   chip.value.leftInBag++;
+  chip.value.boughtThisRound = true;
+  emits('incremented');
 };
 
 const decrement = () => {
   if (chip.value.quantity > 0) {
     chip.value.quantity--;
     chip.value.leftInBag--;
+    chip.value.boughtThisRound = false;
+    emits('decremented');
   }
 };
 </script>

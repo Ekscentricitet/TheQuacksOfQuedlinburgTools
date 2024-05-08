@@ -32,8 +32,8 @@ export default class GameChips {
     return chips.map((chip) => ChipQuantity.fromChip(chip));
   }
 
-  public static groupChips(chips: Chip[]) {
-    const groups: Record<string, Chip[]> = {};
+  public static groupChips(chips: ChipQuantity[]) {
+    const groups: Record<string, ChipQuantity[]> = {};
     chips.forEach((chip) => {
       let name = chip.name;
       if (name == 'pumpkin' || name == 'moth' || name == 'ghost')

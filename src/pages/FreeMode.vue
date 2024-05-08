@@ -1,7 +1,7 @@
 <template>
   <div class="column items-center">
     <ChipsDisplay v-model="player.bag.chips as ChipQuantity[]"></ChipsDisplay>
-    <DrawComponent v-model="player.bag.chips as ChipQuantity[]"></DrawComponent>
+    <DrawComponent v-if="isDrawPhase" v-model="player.bag.chips as ChipQuantity[]"></DrawComponent>
   </div>
 </template>
 
@@ -13,9 +13,12 @@ import ChipsDisplay from 'src/components/ChipsDisplay.vue';
 import ChipQuantity from 'src/components/models/Chip/chipQuantity';
 
 const player = ref<Player>(new Player);
+const round = ref(0);
+const isDrawPhase = ref(true);
 
 onMounted(() => {
   player.value = new Player();
+  round.value++;
 });
 
 </script>

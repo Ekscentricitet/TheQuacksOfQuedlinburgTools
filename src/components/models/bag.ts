@@ -6,4 +6,11 @@ export default class Bag {
   constructor() {
     this.chips = GameChips.startingChips;
   }
+
+  addOneWhite() {
+    const cherry1Index = this.chips.findIndex(
+      (chip) => chip.name == 'cherry' && chip.value == 1
+    );
+    this.chips[cherry1Index].quantity += 1;
+  }
 }

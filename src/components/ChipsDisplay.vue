@@ -1,15 +1,13 @@
 <template>
   <div class="column items-start q-pb-md">
-    <card>
-      <template v-for="(group, index) in groupedItems" :key="index">
-        <div class="row q-ma-sm">
-          <ChipComponent v-for="chip in group.items" :key="chip.name" v-model="chips[getElementIndex(chip)]"
-            class="q-ma-xs" :show-number="showNumber" :allow-increment="allowIncrement"
-            :allow-decrement="allowDecrement" :allow-value-update="allowValueUpdate" />
-        </div>
-        <q-separator inset />
-      </template>
-    </card>
+    <template v-for="(group, index) in groupedItems" :key="index">
+      <div class="row q-ma-sm">
+        <ChipComponent v-for="chip in group.items" :key="chip.name" v-model="chips[getElementIndex(chip)]"
+          class="q-ma-xs" :show-number="showNumber" :allow-increment="allowIncrement" :allow-decrement="allowDecrement"
+          :allow-value-update="allowValueUpdate" />
+      </div>
+      <q-separator inset />
+    </template>
   </div>
 </template>
 
