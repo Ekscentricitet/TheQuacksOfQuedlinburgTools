@@ -8,8 +8,7 @@ import DrawComponent from 'components/DrawComponent.vue'
 import { ref, onMounted } from 'vue';
 import Player from 'src/components/models/player';
 import ChipsDisplay from 'src/components/ChipsDisplay.vue';
-import Chip from 'src/components/models/chip';
-import ChipQuantity from 'src/components/models/chipQuantity';
+import ChipQuantity from 'src/components/models/Chip/chipQuantity';
 
 const player = ref<Player>(new Player);
 

@@ -2,18 +2,28 @@
   <q-card>
     <q-icon :color="chip.color" :name="chip.icon" size="1.5em" />
     <q-icon :color="chip.color" :name="chip.numberIcon" size="1.5em" />
-    <q-btn @click="decrement" dense flat icon="remove" size="10px" />
-    {{ chip.quantity }}
-    <q-btn @click="increment" dense flat icon="add" size="10px" />
+    <row v-if="showNumber">
+      <q-btn v-if="allowValueUpdate" :disabled="!allowDecrement" @click="decrement" dense flat icon="remove"
+        size="10px" />
+      <q-chip>{{ chip.quantity }}</q-chip>
+      <q-btn v-if="allowValueUpdate" :disabled="!allowIncrement" @click="increment" dense flat icon="add" size="10px" />
+    </row>
   </q-card>
 </template>
 
 <script setup lang="ts">
-import ChipQuantity from 'components/models/chipQuantity';
+import ChipQuantity from './models/Chip/chipQuantity';
 
 const chip = defineModel<ChipQuantity>({
   required: true
 });
+
+defineProps({
+  showNumber: Boolean,
+  allowValueUpdate: Boolean,
+  allowIncrement: Boolean,
+  allowDecrement: Boolean,
+})
 
 const increment = () => {
   chip.value.quantity++;

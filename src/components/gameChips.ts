@@ -1,7 +1,7 @@
 import chipsData from 'assets/chips.json';
-import Chip from 'components/models/chip';
-import ChipQuantity from 'components/models/chipQuantity';
-import ChipDto from 'components/models/chipDto';
+import Chip from 'src/components/models/Chip/chip';
+import ChipQuantity from 'src/components/models/Chip/chipQuantity';
+import ChipDto from 'src/components/models/Chip/chipDto';
 
 export default class GameChips {
   public static chips: Chip[];
@@ -20,7 +20,7 @@ export default class GameChips {
       chips.push(Chip.fromDto(dto, 1));
       if (dto.hasMultiple) {
         chips.push(Chip.fromDto(dto, 2));
-        if (dto.name == 'cherry') chips.push(Chip.fromDto(dto, 31));
+        if (dto.name == 'cherry') chips.push(Chip.fromDto(dto, 3));
         else chips.push(Chip.fromDto(dto, 4));
       }
     });

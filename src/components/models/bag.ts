@@ -1,4 +1,4 @@
-import ChipQuantity from './chipQuantity';
+import ChipQuantity from './Chip/chipQuantity';
 import GameChips from 'components/gameChips';
 
 export default class Bag {

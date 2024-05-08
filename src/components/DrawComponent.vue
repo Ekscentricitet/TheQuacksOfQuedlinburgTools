@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import Chip from './models/chip';
+import Chip from './models/Chip/chip';
 import { ref } from 'vue';
-import ChipQuantity from './models/chipQuantity';
+import ChipQuantity from './models/Chip/chipQuantity';
 
 const playerChips = defineModel<ChipQuantity[]>({
   required: true
@@ -44,7 +44,6 @@ function draw() {
 
 function getRandomChip<ChipUnit>(chipsUnits: ChipUnit[]) {
   if (chipsUnits.length === 0) return undefined;
-  console.log(chipsUnits);
   const randomIndex = Math.floor(Math.random() * chipsUnits.length);
   return chipsUnits[randomIndex];
 }
