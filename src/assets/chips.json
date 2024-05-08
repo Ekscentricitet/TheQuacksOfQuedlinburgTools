@@ -8,20 +8,20 @@
     "hasMultiple": true
   },
   {
-    "name": "spider",
-    "activeRound": 1,
-    "fullName": "Garden Spider",
-    "icon": "mdi-spider",
-    "color": "spider",
-    "hasMultiple": true
-  },
-  {
     "name": "pumpkin",
     "activeRound": 1,
     "fullName": "Pumpkin",
     "icon": "mdi-pumpkin",
     "color": "pumpkin",
     "hasMultiple": false
+  },
+  {
+    "name": "spider",
+    "activeRound": 1,
+    "fullName": "Garden Spider",
+    "icon": "mdi-spider",
+    "color": "spider",
+    "hasMultiple": true
   },
   {
     "name": "skull",

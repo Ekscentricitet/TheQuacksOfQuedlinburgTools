@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <q-btn @click="draw" class="q-ma-xs">Draw</q-btn>
-    <q-btn @click="reset" class="q-ma-xs">Reset</q-btn>
-    <div v-if="drawnChips.length > 0">
-      Drawn chips:
+  <div class="column items-center">
+    <div>
+      <q-btn @click="draw" class="q-ma-xs">Draw</q-btn>
+      <q-btn @click="reset" class="q-ma-xs">Reset</q-btn>
+    </div>
+    <div v-if="drawnChips.length > 0" class="q-pa-md">
       <q-chip v-for="drawnChip in drawnChips" :key="drawnChip.name" color="grey-2">
         <q-icon :name="drawnChip.icon" :color="drawnChip.color" />
         <q-icon :name="drawnChip.numberIcon" :color="drawnChip.color" />

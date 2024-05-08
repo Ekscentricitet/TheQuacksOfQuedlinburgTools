@@ -1,6 +1,8 @@
 <template>
-  <ChipsDisplay v-model="player.bag.chips as ChipQuantity[]"></ChipsDisplay>
-  <DrawComponent v-model="player.bag.chips as ChipQuantity[]"></DrawComponent>
+  <div class="column items-center">
+    <ChipsDisplay v-model="player.bag.chips as ChipQuantity[]"></ChipsDisplay>
+    <DrawComponent v-model="player.bag.chips as ChipQuantity[]"></DrawComponent>
+  </div>
 </template>
 
 <script setup lang="ts">

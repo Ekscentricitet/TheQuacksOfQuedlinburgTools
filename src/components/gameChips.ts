@@ -35,7 +35,9 @@ export default class GameChips {
   public static groupChips(chips: Chip[]) {
     const groups: Record<string, Chip[]> = {};
     chips.forEach((chip) => {
-      const name = chip.name;
+      let name = chip.name;
+      if (name == 'pumpkin' || name == 'moth' || name == 'ghost')
+        name = 'single';
       if (!groups[name]) {
         groups[name] = [];
       }

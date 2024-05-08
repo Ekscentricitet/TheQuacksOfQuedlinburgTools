@@ -1,13 +1,19 @@
 <template>
   <q-card>
-    <q-icon :color="chip.color" :name="chip.icon" size="1.5em" />
-    <q-icon :color="chip.color" :name="chip.numberIcon" size="1.5em" />
-    <row v-if="showNumber">
-      <q-btn v-if="allowValueUpdate" :disabled="!allowDecrement" @click="decrement" dense flat icon="remove"
-        size="10px" />
-      <q-chip>{{ chip.quantity }}</q-chip>
-      <q-btn v-if="allowValueUpdate" :disabled="!allowIncrement" @click="increment" dense flat icon="add" size="10px" />
-    </row>
+    <div class="row items-center">
+      <div class="column">
+        <q-icon :color="chip.color" :name="chip.icon" size="3.5vh" />
+        <q-icon :color="chip.color" :name="chip.numberIcon" size="3.5vh" />
+      </div>
+      <div v-if="showNumber" class="row">
+        <q-btn v-if="allowValueUpdate" :disabled="!allowDecrement" @click="decrement" dense flat icon="remove"
+          size="1.5vh" />
+        <q-chip size="1.5vh">{{ chip.quantity }}</q-chip>
+        <q-btn v-if="allowValueUpdate" :disabled="!allowIncrement" @click="increment" dense flat icon="add"
+          size="1.5vh" />
+      </div>
+    </div>
+
   </q-card>
 </template>
 
