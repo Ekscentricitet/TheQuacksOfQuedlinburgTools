@@ -40,8 +40,8 @@ onMounted(() => {
 })
 
 const drawerItems = [
-  { id: 1, name: 'Free Mode', route: '/free-mode' },
-  { id: 2, name: 'Game Mode', route: '/game-mode' },
+  { id: 1, name: 'Game Mode', route: '/game-mode' },
+  { id: 2, name: 'Free Mode', route: '/free-mode' },
 ];
 
 const navigateToPage = (route: string) => {
