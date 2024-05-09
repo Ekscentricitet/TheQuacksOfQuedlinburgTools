@@ -16,9 +16,15 @@
 
     <q-drawer v-model="drawerOpen">
       <q-list>
-        <q-item clickable v-for="item in drawerItems" :key="item.id" @click="navigateToPage(item.route)">
-          <q-item-section>{{ item.name }}</q-item-section>
-        </q-item>
+        <template v-for="item in drawerItems" :key="item.id">
+          <q-item clickable :active="currentRoute == item.route" @click="navigateToPage(item.route)">
+            <q-item-section avatar>
+              <q-icon :name="item.icon" />
+            </q-item-section>
+            <q-item-section>{{ item.name }}</q-item-section>
+          </q-item>
+        <q-separator v-if="item.id != drawerItems.length"/>
+      </template>
       </q-list>
     </q-drawer>
 
@@ -34,17 +40,20 @@ import { useRouter } from 'vue-router';
 
 const drawerOpen = ref(false);
 const router = useRouter();
+const currentRoute = ref('/game-mode');
 
 onMounted(() => {
   router.push('/game-mode')
 })
 
 const drawerItems = [
-  { id: 1, name: 'Game Mode', route: '/game-mode' },
-  { id: 2, name: 'Free Mode', route: '/free-mode' },
+  { id: 1, name: 'Game Mode', route: '/game-mode', icon: 'mdi-pot-mix' },
+  { id: 2, name: 'Free Mode', route: '/free-mode', icon: 'mdi-archive-lock-open-outline' },
 ];
 
 const navigateToPage = (route: string) => {
+  drawerOpen.value = false;
+  currentRoute.value = route;
   router.push(route);
 };
 
