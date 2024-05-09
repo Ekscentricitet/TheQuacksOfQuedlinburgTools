@@ -4,7 +4,8 @@
       <div class="row q-ma-sm">
         <template v-for="chip in group.items" :key="chip.name">
           <ChipComponent v-if="chip.activeRound <= round" class="q-ma-xs" :show-number="true"
-            v-model="chips[getElementIndex(chip)]" :allow-increment="!chip.boughtThisRound && boughtThisRound < 2"
+            v-model="chips[getElementIndex(chip)]"
+            :allow-increment="!limitBuyingChoise || (!chip.boughtThisRound && boughtThisRound < 2)"
             :allow-decrement="chip.boughtThisRound" :allow-value-update="chip.name != 'cherry'"
             @incremented="handleIncremented" @decremented="handleDecremented" />
         </template>
@@ -23,14 +24,17 @@ import { onMounted, ref } from 'vue';
 
 const chips = defineModel<ChipQuantity[]>({ required: true });
 const boughtThisRound = ref(0);
+const limitBuyingChoise = ref();
 
 onMounted(() => {
   boughtThisRound.value = 0;
+  limitBuyingChoise.value = props.limitBuying;
   changeBoughtStatus(undefined, false);
 })
 
-defineProps({
-  round: { type: Number, required: true }
+const props = defineProps({
+  round: { type: Number, required: true },
+  limitBuying: { type: Boolean, required: false, default: true }
 })
 
 const groupedItems = GameChips.groupChips(chips.value);

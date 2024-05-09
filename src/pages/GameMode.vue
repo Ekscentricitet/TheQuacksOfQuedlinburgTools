@@ -3,8 +3,13 @@
     <div class="text-subtitle1 q-ma-sm">
       Round: {{ round }}
     </div>
+    <div>
+
+    </div>
     <q-btn color="primary" @click="confirmAdvancement">{{ phaseButtonText }}</q-btn>
     <ShopComponent v-if="isBuyPhase" :round="round" v-model="player.bag.chipsData as ChipQuantity[]" />
+    <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round"
+      v-model="player.bag.chipsData as ChipQuantity[]" />
     <DrawComponent v-if="isDrawPhase" v-model="player.bag as Bag" :is-reset-allowed="false">
     </DrawComponent>
   </div>
@@ -23,6 +28,7 @@ import Bag from 'src/components/models/bag';
 const player = ref<Player>(new Player);
 const round = ref(0);
 const isBuyPhase = ref(false);
+const isCardPhase = ref(false);
 const isDrawPhase = ref(true);
 const $q = useQuasar()
 
@@ -52,19 +58,31 @@ function changeRound() {
   if (round.value == GameData.lastRound)
     return;
 
-  isBuyPhase.value = !isBuyPhase.value;
-  isDrawPhase.value = !isDrawPhase.value;
+  if (isBuyPhase.value) {
+    isBuyPhase.value = false;
+    isCardPhase.value = true;
+  }
+  else if (isCardPhase.value) {
+    isCardPhase.value = false;
+    isDrawPhase.value = true;
+  }
+  else {
+    isDrawPhase.value = false;
+    isBuyPhase.value = true;
+  }
 
-  if (isDrawPhase.value)
+  if (isCardPhase.value) {
     round.value++;
-
-  if (round.value == GameData.addOneWhiteRound && isDrawPhase.value)
-    player.value.bag.addOneWhite();
+    if (round.value == GameData.addOneWhiteRound)
+      player.value.bag.addOneWhite();
+  }
 }
 
 const phaseButtonText = computed(() => {
   if (isBuyPhase.value)
-    return 'Next Round';
+    return 'Resolve the die and cards';
+  if (isCardPhase.value)
+    return 'Draw Phase'
   return 'Buy chips';
 })
 
