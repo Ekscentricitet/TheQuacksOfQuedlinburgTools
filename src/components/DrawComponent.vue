@@ -115,7 +115,6 @@ function handleChipSelected(chip: Chip | null) {
   canChipsBeSelected.value = false;
   if (chip != null) {
     chipsToSelectFrom.value = [];
-    playerBag.value.removeChipFromBag(chip);
     placeChip(chip);
   }
 }
