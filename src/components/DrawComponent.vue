@@ -7,9 +7,9 @@
     </div>
     <div class="q-pa-md">
       <q-chip>Cherry Sum: {{ cherrySum }}</q-chip>
-      <q-chip v-for="drawnChip in drawnChips" :key="drawnChip.name" color="grey-2">
-        <q-icon :name="drawnChip.icon" :color="drawnChip.color" />
-        <q-icon :name="drawnChip.numberIcon" :color="drawnChip.color" />
+      <q-chip v-for="drawnChip in drawnChips" :key="drawnChip.name" color="grey-3" size="1.5vh">
+        <q-icon :name="drawnChip.icon" :color="drawnChip.color" size="3vh" />
+        <q-icon :name="drawnChip.numberIcon" :color="drawnChip.color" size="3vh" />
       </q-chip>
     </div>
   </div>
