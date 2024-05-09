@@ -69,3 +69,7 @@ Instead of putting your chips in the bag, leave them on the board. Use the app t
 #### Buying phase for Round 6
 
 ![image](./screenshots/GameMode4.png)
+
+#### Drawing blue when playing variant I
+
+![image](./screenshots/GameMode5.png)
