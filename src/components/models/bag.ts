@@ -5,7 +5,7 @@ import GameChips from 'components/gameChips';
 export default class Bag {
   public chipsData: ChipQuantity[];
   constructor() {
-    this.chipsData = GameChips.startingChips;
+    this.chipsData = JSON.parse(JSON.stringify(GameChips.startingChips));
   }
 
   addOneWhite() {
