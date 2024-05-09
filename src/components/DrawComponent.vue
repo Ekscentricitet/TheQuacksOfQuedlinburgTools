@@ -3,6 +3,7 @@
     <div>
       <q-btn v-if="!areChipsOver || isResetAllowed" @click="draw" class="q-ma-xs">Draw</q-btn>
       <q-btn v-if="isResetAllowed" @click="reset" class="q-ma-xs">Reset</q-btn>
+      <q-btn :disabled="!flaskAvailable" @click="useFlask" icon="mdi-flask"></q-btn>
     </div>
     <div class="q-pa-md">
       <q-chip>Cherry Sum: {{ cherrySum }}</q-chip>
@@ -18,7 +19,10 @@
 import Chip from './models/Chip/chip';
 import { computed, onMounted, ref } from 'vue';
 import ChipQuantity from './models/Chip/chipQuantity';
+import { useQuasar } from 'quasar';
 
+const $q = useQuasar()
+const flaskUsed = ref(false);
 const playerChips = defineModel<ChipQuantity[]>({
   required: true
 });
@@ -67,6 +71,38 @@ function reset() {
     chip.leftInBag = chip.quantity
   });
   drawnChips.value = [];
+  flaskUsed.value = false;
+}
+
+function useFlask(){
+  const lastChip = drawnChips.value.pop();
+
+  if (lastChip?.name != 'cherry' && lastChip != null)
+  {
+    drawnChips.value.push(lastChip);
+    showBadFlaskUsageDialog();
+    return;
+  }
+
+  flaskUsed.value = true;
+
+  const chipsInBag = playerChips.value
+    .find(chip => chip.name == 'cherry' && chip.value == lastChip?.value);
+
+  if (chipsInBag == null)
+    return;
+
+  chipsInBag.leftInBag += 1;
+}
+
+function showBadFlaskUsageDialog(){
+  $q.dialog({
+      title: 'Cannot use the flask',
+      message: 'The last drawn token is not a cherry.',
+      ok: {
+        label: 'Poor me...',
+      },
+    })
 }
 
 const cherrySum = computed(() => {
@@ -75,6 +111,10 @@ const cherrySum = computed(() => {
   let sum = 0;
   drawnCherries.forEach(cherry => sum += cherry.value);
   return sum;
+})
+
+const flaskAvailable = computed(() =>{
+  return !flaskUsed.value && cherrySum.value > 7;
 })
 </script>
 
