@@ -121,8 +121,10 @@ function handleChipSelected(chip: Chip | null) {
 
 function useFlask() {
   const isReturnSuccessful = returnLastCherry();
-  if (isReturnSuccessful)
+  if (!isReturnSuccessful) {
     showBadFlaskUsageDialog();
+    return;
+  }
   flaskUsed.value = true;
 }
 
@@ -137,10 +139,12 @@ function returnLastCherry() {
   const cherryInBag = playerBag.value.chipsData
     .find(chip => chip.name == 'cherry' && chip.value == lastChip?.value);
 
+  console.log(cherryInBag);
   if (cherryInBag == null)
     return false;
 
   cherryInBag.leftInBag += 1;
+  return true;
 }
 
 function showBadFlaskUsageDialog() {
