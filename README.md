@@ -20,6 +20,7 @@ The release app is not signed. However, the pipeline that builds and publishes i
   - Chips that are not supposed to be available in the current round are not displayed.
   - You cannot change the quantity of the white chips.
   - One white chip is added automatically on the 6th turn.
+  - After the shop phase you have a chance to resolve any card effects that give you tokens.
 - Game mechanics support:
   - Flask
   - Drawing blue or yellow in game variation I
@@ -34,11 +35,13 @@ Download the APK file on your phone and install it. You will need to allow insta
 
 ### In-Game
 
-Instead of putting your chips in the bag, leave them on the board. Use the app to draw a chip. Then pick the corresponding chip from the pile and place it on your board. When you have to buy chips, use the in-game shop to add them to your bag. **If you are playing variant I of the game, switch the corresponding toggle in the menu**
+Instead of putting your chips in the bag, leave them on the board. Use the app to draw a chip. Then pick the corresponding chip from the pile and place it on your board. When you have to buy chips, use the in-game shop to add them to your bag.
+
+**If you are playing variant I of the game, switch the corresponding toggle in the menu**
 
 ### Known limitations
 
-- Cards that add tokens are not supported. If you are playing with those - use free mode.
+- Some cards ask you to draw chips at the beginning of the round. Those are not supported yet.
 - If you restart the app you will lose your progress.
 - If you change the mode you will lose your progress.
 
