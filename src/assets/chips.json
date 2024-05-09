@@ -49,7 +49,7 @@
   },
   {
     "name": "ghost",
-    "activeRound": 2,
+    "activeRound": 3,
     "fullName": "Ghost's breath",
     "icon": "mdi-ghost",
     "color": "ghost",
@@ -57,7 +57,7 @@
   },
   {
     "name": "mandrake",
-    "activeRound": 3,
+    "activeRound": 2,
     "fullName": "Mandrake",
     "icon": "mdi-human-child",
     "color": "mandrake",
