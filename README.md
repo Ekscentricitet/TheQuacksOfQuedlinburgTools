@@ -58,7 +58,7 @@ Instead of putting your chips in the bag, leave them on the board. Use the app t
 
 ![image](./screenshots/GameMode1.png)
 
-#### Warning where proceeding
+#### Warning when proceeding
 
 ![image](./screenshots/GameMode2.png)
 
