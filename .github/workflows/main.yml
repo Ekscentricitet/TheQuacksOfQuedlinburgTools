@@ -49,13 +49,16 @@ jobs:
           cd src-cordova
           cordova build android --packageType=apk --no-telemetry
 
+      - name: Rename APK
+        run: mv src-cordova/platforms/android/app/build/outputs/apk/debug/app-debug.apk src-cordova/platforms/android/app/build/outputs/apk/debug/quacks_tools-${{ steps.extract_version.outputs.version }}.apk
+
       - name: Release APK
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
-            src-cordova/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+            src-cordova/platforms/android/app/build/outputs/apk/debug/myapp-${{ steps.extract_version.outputs.version }}.apk
           name: Release ${{ steps.extract_version.outputs.version }}
           tag_name: v${{ steps.extract_version.outputs.version }}
           body: |
