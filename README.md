@@ -34,7 +34,7 @@ Download the APK file on your phone and install it. You will need to allow insta
 
 ### In-Game
 
-Instead of putting your chips in the bag, leave them on the board. Use the app to draw a chip. Then pick the corresponding chip from the pile and place it on your board. When you have to buy chips, use the in-game shop to add them to your bag.
+Instead of putting your chips in the bag, leave them on the board. Use the app to draw a chip. Then pick the corresponding chip from the pile and place it on your board. When you have to buy chips, use the in-game shop to add them to your bag. **If you are playing variant I of the game, switch the corresponding toggle in the menu**
 
 ### Known limitations
 
@@ -47,6 +47,10 @@ Instead of putting your chips in the bag, leave them on the board. Use the app t
 ### Free mode
 
 ![image](./screenshots/FreeMode.png)
+
+### Side bar
+
+![image](./screenshots/SideBar.png)
 
 ### Game mode
 
