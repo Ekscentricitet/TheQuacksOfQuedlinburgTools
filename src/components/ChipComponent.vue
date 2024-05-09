@@ -1,5 +1,5 @@
 <template>
-  <q-card>
+  <q-card @click="emits('clicked')">
     <div class="row items-center">
       <div class="column">
         <q-icon :color="chip.color" :name="chip.icon" size="3vh" />
@@ -13,7 +13,6 @@
           size="1vh" />
       </div>
     </div>
-
   </q-card>
 </template>
 
@@ -31,7 +30,7 @@ defineProps({
   allowDecrement: Boolean,
 })
 
-const emits = defineEmits(['incremented', 'decremented']);
+const emits = defineEmits(['incremented', 'decremented', 'clicked']);
 
 const increment = () => {
   chip.value.quantity++;

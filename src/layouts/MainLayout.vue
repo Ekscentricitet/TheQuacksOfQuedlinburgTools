@@ -23,8 +23,11 @@
             </q-item-section>
             <q-item-section>{{ item.name }}</q-item-section>
           </q-item>
-        <q-separator v-if="item.id != drawerItems.length"/>
+        <q-separator/>
       </template>
+      <q-item>
+        <VariantOneToggle></VariantOneToggle>
+      </q-item>
       </q-list>
     </q-drawer>
 
@@ -37,6 +40,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import VariantOneToggle from 'components/VariantOneToggle.vue'
 
 const drawerOpen = ref(false);
 const router = useRouter();

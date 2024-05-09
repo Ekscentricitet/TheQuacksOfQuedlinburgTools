@@ -4,8 +4,8 @@
       Round: {{ round }}
     </div>
     <q-btn color="primary" @click="confirmAdvancement">{{ phaseButtonText }}</q-btn>
-    <ShopComponent v-if="isBuyPhase" :round="round" v-model="player.bag.chips as ChipQuantity[]" />
-    <DrawComponent v-if="isDrawPhase" v-model="player.bag.chips as ChipQuantity[]" :is-reset-allowed="false">
+    <ShopComponent v-if="isBuyPhase" :round="round" v-model="player.bag.chipsData as ChipQuantity[]" />
+    <DrawComponent v-if="isDrawPhase" v-model="player.bag as Bag" :is-reset-allowed="false">
     </DrawComponent>
   </div>
 </template>
@@ -15,9 +15,10 @@ import DrawComponent from 'components/DrawComponent.vue'
 import { ref, onMounted, computed } from 'vue';
 import Player from 'src/components/models/player';
 import ChipQuantity from 'src/components/models/Chip/chipQuantity';
-import RoundData from 'src/components/roundData';
+import GameData from 'src/components/gameData';
 import ShopComponent from 'src/components/ShopComponent.vue';
 import { useQuasar } from 'quasar';
+import Bag from 'src/components/models/bag';
 
 const player = ref<Player>(new Player);
 const round = ref(0);
@@ -48,7 +49,7 @@ function confirmAdvancement() {
 }
 
 function changeRound() {
-  if (round.value == RoundData.lastRound)
+  if (round.value == GameData.lastRound)
     return;
 
   isBuyPhase.value = !isBuyPhase.value;
@@ -57,7 +58,7 @@ function changeRound() {
   if (isDrawPhase.value)
     round.value++;
 
-  if (round.value == RoundData.addOneWhiteRound && isDrawPhase.value)
+  if (round.value == GameData.addOneWhiteRound && isDrawPhase.value)
     player.value.bag.addOneWhite();
 }
 
