@@ -7,9 +7,8 @@
 
     </div>
     <q-btn color="primary" @click="confirmAdvancement">{{ phaseButtonText }}</q-btn>
-    <ShopComponent v-if="isBuyPhase" :round="round" v-model="player.bag.chipsData as ChipQuantity[]" />
-    <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round"
-      v-model="player.bag.chipsData as ChipQuantity[]" />
+    <ShopComponent v-if="isBuyPhase" :round="round" v-model="player.bag as Bag" />
+    <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round" v-model="player.bag as Bag" />
     <DrawComponent v-if="isDrawPhase" v-model="player.bag as Bag" :is-reset-allowed="false">
     </DrawComponent>
   </div>
@@ -19,7 +18,6 @@
 import DrawComponent from 'components/DrawComponent.vue'
 import { ref, onMounted, computed } from 'vue';
 import Player from 'src/components/models/player';
-import ChipQuantity from 'src/components/models/chip/chipQuantity';
 import GameData from 'src/components/gameData';
 import ShopComponent from 'src/components/ShopComponent.vue';
 import { useQuasar } from 'quasar';

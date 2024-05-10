@@ -25,7 +25,7 @@
           </div>
           <div class="row q-pa-md items-center">
             <template v-for="chip, index in chipsToSelectFrom" :key="index">
-              <ChipVisualization :chip="chip as Chip" @clicked="handleChipSelected(chip as Chip)" />
+              <ChipVisualization :chip="chip as Chip" @clicked="handleChipSelected(chip as Chip)" class="q-ma-sm" />
             </template>
           </div>
         </div>

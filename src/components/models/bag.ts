@@ -4,9 +4,12 @@ import GameChips from 'components/gameChips';
 
 export default class Bag {
   public chipsData: ChipQuantity[];
+
   constructor() {
     this.chipsData = JSON.parse(JSON.stringify(GameChips.startingChips));
   }
+
+  public chipsBoughtThisRound = 0;
 
   addOneWhite() {
     const cherry1Index = this.chipsData.findIndex(
@@ -37,6 +40,7 @@ export default class Bag {
   reset() {
     this.chipsData.map((chip) => {
       chip.leftInBag = chip.quantity;
+      chip.boughtThisRound = false;
     });
   }
 
@@ -50,16 +54,40 @@ export default class Bag {
   }
 
   removeChipFromBag(chip: Chip) {
-    const chipData = this.chipsData.find(
-      (entry) => entry.name == chip.name && entry.value == chip.value
-    );
-    if (chipData) chipData.leftInBag--;
+    const chipQuantity = this.getChipQuantity(chip);
+    if (chipQuantity) chipQuantity.leftInBag--;
   }
 
   addChipToBag(chip: Chip) {
-    const chipData = this.chipsData.find(
+    const chipQuantity = this.getChipQuantity(chip);
+    if (chipQuantity) chipQuantity.leftInBag++;
+  }
+
+  buyChip(chip: Chip) {
+    const chipQuantity = this.getChipQuantity(chip);
+
+    if (!chipQuantity) return;
+
+    chipQuantity.leftInBag++;
+    chipQuantity.quantity++;
+    chipQuantity.boughtThisRound = true;
+    this.chipsBoughtThisRound++;
+  }
+
+  sellChip(chip: Chip) {
+    const chipQuantity = this.getChipQuantity(chip);
+
+    if (!chipQuantity) return;
+
+    chipQuantity.leftInBag--;
+    chipQuantity.quantity--;
+    chipQuantity.boughtThisRound = false;
+    this.chipsBoughtThisRound--;
+  }
+
+  getChipQuantity(chip: Chip) {
+    return this.chipsData.find(
       (entry) => entry.name == chip.name && entry.value == chip.value
     );
-    if (chipData) chipData.leftInBag++;
   }
 }
