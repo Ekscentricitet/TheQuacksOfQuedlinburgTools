@@ -43,8 +43,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import VariantOneToggle from 'components/Toggles/VariantOneToggle.vue'
-import ThemeToggle from 'components/Toggles/ThemeToggle.vue'
+import VariantOneToggle from 'components/toggles/VariantOneToggle.vue'
+import ThemeToggle from 'components/toggles/ThemeToggle.vue'
 
 const drawerOpen = ref(false);
 const router = useRouter();

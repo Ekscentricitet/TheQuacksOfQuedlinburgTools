@@ -11,8 +11,8 @@
 
 <script setup lang="ts">
 import ChipVisualization from './ChipVisualization.vue';
-import ChipQuantity from '../models/Chip/chipQuantity';
-import Chip from '../models/Chip/chip';
+import ChipQuantity from '../models/chip/chipQuantity';
+import Chip from '../models/chip/chip';
 
 const chip = defineModel<ChipQuantity>({
   required: true

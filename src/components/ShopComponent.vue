@@ -17,8 +17,8 @@
 
 <script setup lang="ts">
 import GameChips from './gameChips';
-import Chip from 'src/components/models/Chip/chip';
-import ChipQuantity from './models/Chip/chipQuantity';
+import Chip from 'src/components/models/chip/chip';
+import ChipQuantity from './models/chip/chipQuantity';
 import { onMounted, ref } from 'vue';
 import ChipUpdate from './chip/ChipUpdate.vue';
 

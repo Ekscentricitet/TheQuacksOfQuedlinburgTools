@@ -16,7 +16,7 @@ import GameChips from '../gameChips';
 import { ref } from 'vue';
 import Bag from '../models/bag';
 import ChipUpdate from './ChipUpdate.vue';
-import ChipQuantity from '../models/Chip/chipQuantity';
+import ChipQuantity from '../models/chip/chipQuantity';
 
 const playerBag = defineModel<Bag>({ required: true });
 

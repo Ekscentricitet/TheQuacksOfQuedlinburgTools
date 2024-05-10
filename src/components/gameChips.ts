@@ -1,7 +1,7 @@
 import chipsData from 'assets/chips.json';
-import Chip from 'src/components/models/Chip/chip';
-import ChipQuantity from 'src/components/models/Chip/chipQuantity';
-import ChipDto from 'src/components/models/Chip/chipDto';
+import Chip from 'src/components/models/chip/chip';
+import ChipQuantity from 'src/components/models/chip/chipQuantity';
+import ChipDto from 'src/components/models/chip/chipDto';
 
 export default class GameChips {
   public static chips: Chip[];

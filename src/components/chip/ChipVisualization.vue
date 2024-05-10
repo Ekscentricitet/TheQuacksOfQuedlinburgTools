@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import Chip from '../models/Chip/chip';
+import Chip from '../models/chip/chip';
 
 const emits = defineEmits(['clicked']);
 

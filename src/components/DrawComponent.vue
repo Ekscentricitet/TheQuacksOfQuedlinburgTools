@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import Chip from './models/Chip/chip';
+import Chip from './models/chip/chip';
 import { computed, onMounted, ref } from 'vue';
 import { useQuasar } from 'quasar';
 import { useGameVariantStore } from 'src/stores/variantStore';

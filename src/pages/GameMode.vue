@@ -19,7 +19,7 @@
 import DrawComponent from 'components/DrawComponent.vue'
 import { ref, onMounted, computed } from 'vue';
 import Player from 'src/components/models/player';
-import ChipQuantity from 'src/components/models/Chip/chipQuantity';
+import ChipQuantity from 'src/components/models/chip/chipQuantity';
 import GameData from 'src/components/gameData';
 import ShopComponent from 'src/components/ShopComponent.vue';
 import { useQuasar } from 'quasar';
