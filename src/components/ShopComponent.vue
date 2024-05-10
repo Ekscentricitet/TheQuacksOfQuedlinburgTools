@@ -1,10 +1,10 @@
 <template>
-  <ChipGrouper v-model="playerBag as Bag">
+  <ChipGrouper v-model="player.bag as Bag">
     <template v-slot="slotProps">
       <ChipIncrement v-if="slotProps.chip.activeRound <= round" class="q-ma-xs" :show-number="true"
         v-model="slotProps.chip" :allow-increment="isIncrementAllowed(slotProps.chip)"
         :allow-decrement="slotProps.chip.boughtThisRound" :allow-value-update="slotProps.chip.name != 'cherry'"
-        @incremented="playerBag.buyChip(slotProps.chip)" @decremented="playerBag.sellChip(slotProps.chip)" />
+        @incremented="player.bag.buyChip(slotProps.chip)" @decremented="player.bag.sellChip(slotProps.chip)" />
     </template>
   </ChipGrouper>
 </template>
@@ -15,26 +15,24 @@ import ChipIncrement from "./chip/ChipIncrement.vue";
 import Bag from "./managers/bag";
 import ChipGrouper from "./chip/ChipGrouper.vue";
 import ChipQuantity from "./models/chipQuantity";
-
-const playerBag = defineModel<Bag>({ required: true });
-const boughtThisRound = ref(0);
-const limitBuyingChoise = ref();
-
-onMounted(() => {
-  boughtThisRound.value = 0;
-  limitBuyingChoise.value = props.limitBuying;
-  playerBag.value.reset();
-});
+import Player from "./managers/player";
 
 const props = defineProps({
   round: { type: Number, required: true },
   limitBuying: { type: Boolean, required: false, default: true },
 });
 
+const player = defineModel<Player>({ required: true });
+const limitBuyingChoise = ref(props.limitBuying);
+
+onMounted(() => {
+  player.value.prepareForNewPhase();
+});
+
 function isIncrementAllowed(chip: ChipQuantity) {
   return (
     !limitBuyingChoise.value ||
-    (!chip.boughtThisRound && playerBag.value.chipsBoughtThisRound < 2)
+    (!chip.boughtThisRound && player.value.bag.chipsBoughtThisRound < 2)
   );
 }
 </script>

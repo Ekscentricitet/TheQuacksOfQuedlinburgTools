@@ -1,13 +1,13 @@
 <template>
   <div class="column items-center">
-    <ChipGrouper v-model="player.bag as Bag">
+    <ChipGrouper v-model="player.bag as unknown as Bag">
       <template v-slot="slotProps">
         <ChipIncrement v-model="slotProps.chip" class="q-ma-xs" :show-number="true" :allow-increment="true"
           :allow-decrement="true" :allow-value-update="true" @incremented="player.bag.buyChip(slotProps.chip)"
           @decremented="player.bag.sellChip(slotProps.chip)" />
       </template>
     </ChipGrouper>
-    <DrawComponent v-model="player.bag as Bag"></DrawComponent>
+    <DrawComponent v-model="player as unknown as Player"></DrawComponent>
   </div>
 </template>
 

@@ -5,9 +5,9 @@
     <q-btn color="primary" @click="confirmAdvancement">{{
       phaseButtonText
     }}</q-btn>
-    <ShopComponent v-if="isBuyPhase" :round="round" v-model="player.bag as Bag" />
-    <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round" v-model="player.bag as Bag" />
-    <DrawComponent v-if="isDrawPhase" v-model="player.bag as Bag" :is-reset-allowed="false">
+    <ShopComponent v-if="isBuyPhase" :round="round" v-model="player as unknown as Player" />
+    <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round" v-model="player as unknown as Player" />
+    <DrawComponent v-if="isDrawPhase" v-model="player as unknown as Player" :is-reset-allowed="false">
     </DrawComponent>
   </div>
 </template>
@@ -19,7 +19,6 @@ import Player from "src/components/managers/player";
 import GameData from "src/components/managers/gameData";
 import ShopComponent from "src/components/ShopComponent.vue";
 import { useQuasar } from "quasar";
-import Bag from "src/components/managers/bag";
 
 const player = ref<Player>(new Player());
 const round = ref(0);
@@ -29,7 +28,6 @@ const isDrawPhase = ref(true);
 const $q = useQuasar();
 
 onMounted(() => {
-  player.value = new Player();
   round.value++;
 });
 

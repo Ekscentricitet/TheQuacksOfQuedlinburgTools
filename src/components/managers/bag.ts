@@ -10,6 +10,7 @@ export default class Bag {
   }
 
   public chipsBoughtThisRound = 0;
+  public areChipsOver = false;
 
   addOneWhite() {
     const cherry1Index = this.chipsData.findIndex(
@@ -18,19 +19,24 @@ export default class Bag {
     this.chipsData[cherry1Index].quantity += 1;
   }
 
-  getRandomChip() {
+  drawRandomChip() {
     const chips = this.getChipsInBag();
-    if (chips.length === 0) {
-      return undefined;
-    }
+
+    if (chips.length === 0) return undefined;
 
     const shuffled = chips.sort(() => Math.random() - 0.5);
-    return shuffled.pop();
+    const drawn = shuffled.pop();
+
+    if (!drawn) return;
+
+    this.removeChip(drawn);
+    if (shuffled.length == 0) this.areChipsOver = true;
+
+    return drawn;
   }
 
-  drawRandomChips(quantity: number) {
+  viewRandomChips(quantity: number) {
     const chips = this.getChipsInBag();
-
     if (chips.length === 0) return undefined;
 
     const shuffled = chips.sort(() => Math.random() - 0.5);
@@ -42,6 +48,8 @@ export default class Bag {
       chip.leftInBag = chip.quantity;
       chip.boughtThisRound = false;
     });
+    this.chipsBoughtThisRound = 0;
+    this.areChipsOver = false;
   }
 
   getChipsInBag() {
@@ -53,14 +61,9 @@ export default class Bag {
       });
   }
 
-  removeChipFromBag(chip: Chip) {
+  removeChip(chip: Chip) {
     const chipQuantity = this.getChipQuantity(chip);
     if (chipQuantity) chipQuantity.leftInBag--;
-  }
-
-  addChipToBag(chip: Chip) {
-    const chipQuantity = this.getChipQuantity(chip);
-    if (chipQuantity) chipQuantity.leftInBag++;
   }
 
   buyChip(chip: Chip) {

@@ -1,5 +1,5 @@
 <template>
-  <ChipVisualization :vertical="true" :chip="chip as Chip">
+  <ChipVisualization :vertical="true" :chip="chip">
     <div v-if="showNumber" class="row">
       <q-btn v-if="allowValueUpdate" :disabled="!allowDecrement" @click="decrement" dense flat icon="remove"
         size="1vh" />
@@ -12,7 +12,6 @@
 <script setup lang="ts">
 import ChipVisualization from "./ChipVisualization.vue";
 import ChipQuantity from "../models/chipQuantity";
-import Chip from "../models/chip";
 
 const chip = defineModel<ChipQuantity>({
   required: true,

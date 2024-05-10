@@ -11,13 +11,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { PropType, computed } from "vue";
 import Chip from "../models/chip";
 
 const emits = defineEmits(["clicked"]);
 
 const props = defineProps({
-  chip: { type: Chip, required: true },
+  chip: { type: Object as PropType<Chip>, required: true },
   vertical: { type: Boolean, default: true },
   size: { default: "3vh" },
 });
