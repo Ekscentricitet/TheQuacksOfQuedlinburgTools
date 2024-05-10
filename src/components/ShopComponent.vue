@@ -3,7 +3,8 @@
     <template v-slot="slotProps">
       <ChipIncrement v-if="slotProps.chip.activeRound <= round" class="q-ma-xs" :show-number="true"
         v-model="slotProps.chip" :allow-increment="isIncrementAllowed(slotProps.chip)"
-        :allow-decrement="slotProps.chip.boughtThisRound" :allow-value-update="slotProps.chip.name != 'cherry'"
+        :allow-decrement="slotProps.chip.boughtThisRound || !limitBuying"
+        :allow-value-update="slotProps.chip.name != 'cherry' || (slotProps.chip.value == 1 && !limitBuying)"
         @incremented="player.bag.buyChip(slotProps.chip)" @decremented="player.bag.sellChip(slotProps.chip)" />
     </template>
   </ChipGrouper>

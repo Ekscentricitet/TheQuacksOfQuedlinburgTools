@@ -11,7 +11,7 @@
         :key="drawnChip.name" />
     </div>
   </div>
-  <VariantOne ref="variant" v-if="isVariantOne" v-model="player as Player"></VariantOne>
+  <DrawVariation ref="variant" v-if="isVariantOne" v-model="player as Player"></DrawVariation>
 </template>
 
 <script setup lang="ts">
@@ -20,7 +20,7 @@ import { useQuasar } from "quasar";
 import { useGameVariantStore } from "src/stores/variantStore";
 import ChipVisualization from "./chip/ChipVisualization.vue";
 import Player from "./managers/player";
-import VariantOne from "./VariantOne.vue";
+import DrawVariation from "./DrawVariation.vue";
 
 const $q = useQuasar();
 const player = defineModel<Player>({

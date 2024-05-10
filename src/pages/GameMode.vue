@@ -1,14 +1,13 @@
 <template>
   <div class="column items-center">
-    <div class="text-subtitle1 q-ma-sm">Round: {{ round }}</div>
-    <div></div>
+    <div class="text-subtitle1 q-ma-sm">{{ roundText }}</div>
     <q-btn color="primary" @click="confirmAdvancement">{{
       phaseButtonText
     }}</q-btn>
     <ShopComponent v-if="isBuyPhase" :round="round" v-model="player as unknown as Player" />
     <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round" v-model="player as unknown as Player" />
-    <DrawComponent v-if="isDrawPhase" v-model="player as unknown as Player" :is-reset-allowed="false">
-    </DrawComponent>
+    <DrawComponent v-if="isDrawPhase" v-model="player as unknown as Player" :is-reset-allowed="false" />
+    <MultipleChipsView v-if="isCardPhase" v-model="player" />
   </div>
 </template>
 
@@ -19,6 +18,7 @@ import Player from "src/components/managers/player";
 import GameData from "src/components/managers/gameData";
 import ShopComponent from "src/components/ShopComponent.vue";
 import { useQuasar } from "quasar";
+import MultipleChipsView from "src/components/MultipleChipsView.vue";
 
 const player = ref<Player>(new Player());
 const round = ref(0);
@@ -73,6 +73,12 @@ const phaseButtonText = computed(() => {
   if (isBuyPhase.value) return "Resolve the die and cards";
   if (isCardPhase.value) return "Draw Phase";
   return "Buy chips";
+});
+
+const roundText = computed(() => {
+  if (isBuyPhase.value) return "Buy up to two chips from different colors.";
+  if (isCardPhase.value) return "Resolve cards and die effects";
+  return "Round: " + round.value;
 });
 </script>
 
