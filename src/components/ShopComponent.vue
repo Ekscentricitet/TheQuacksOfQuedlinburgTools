@@ -3,7 +3,7 @@
     <template v-for="(group, index) in groupedItems" :key="index">
       <div class="row q-ma-sm">
         <template v-for="chip in group.items" :key="chip.name">
-          <ChipComponent v-if="chip.activeRound <= round" class="q-ma-xs" :show-number="true"
+          <ChipUpdate v-if="chip.activeRound <= round" class="q-ma-xs" :show-number="true"
             v-model="chips[getElementIndex(chip)]"
             :allow-increment="!limitBuyingChoise || (!chip.boughtThisRound && boughtThisRound < 2)"
             :allow-decrement="chip.boughtThisRound" :allow-value-update="chip.name != 'cherry'"
@@ -18,9 +18,9 @@
 <script setup lang="ts">
 import GameChips from './gameChips';
 import Chip from 'src/components/models/Chip/chip';
-import ChipComponent from './ChipComponent.vue';
 import ChipQuantity from './models/Chip/chipQuantity';
 import { onMounted, ref } from 'vue';
+import ChipUpdate from './chip/ChipUpdate.vue';
 
 const chips = defineModel<ChipQuantity[]>({ required: true });
 const boughtThisRound = ref(0);

@@ -5,12 +5,10 @@
       <q-btn v-if="isResetAllowed" @click="reset" class="q-ma-xs">Reset</q-btn>
       <q-btn :disabled="!flaskAvailable" @click="useFlask" icon="mdi-flask"></q-btn>
     </div>
-    <div class="q-pa-md">
+    <div class="row">
       <q-chip>Cherry Sum: {{ cherrySum }}</q-chip>
-      <q-chip v-for="drawnChip in drawnChips" :key="drawnChip.name" color="grey-3" size="1.5vh">
-        <q-icon :name="drawnChip.icon" :color="drawnChip.color" size="3vh" />
-        <q-icon :name="drawnChip.numberIcon" :color="drawnChip.color" size="3vh" />
-      </q-chip>
+      <ChipVisualization class="q-ma-sm" :chip="drawnChip as Chip" :vertical="true" v-for="drawnChip in drawnChips"
+        :key="drawnChip.name" />
     </div>
   </div>
   <q-dialog v-model="canChipsBeSelected" persistent>
@@ -27,9 +25,7 @@
           </div>
           <div class="row q-pa-md items-center">
             <template v-for="chip, index in chipsToSelectFrom" :key="index">
-              <ChipComponent class="q-ma-md"
-                v-model="chipsToSelectFrom[chipsToSelectFrom.indexOf(chip)] as unknown as ChipQuantity"
-                @clicked="handleChipSelected(chip as Chip)" />
+              <ChipVisualization :chip="chip as Chip" @clicked="handleChipSelected(chip as Chip)" />
             </template>
           </div>
         </div>
@@ -45,11 +41,10 @@
 <script setup lang="ts">
 import Chip from './models/Chip/chip';
 import { computed, onMounted, ref } from 'vue';
-import ChipQuantity from './models/Chip/chipQuantity';
 import { useQuasar } from 'quasar';
 import { useGameVariantStore } from 'src/stores/variantStore';
-import ChipComponent from './ChipComponent.vue';
 import Bag from './models/bag';
+import ChipVisualization from './chip/ChipVisualization.vue';
 
 const $q = useQuasar()
 const flaskUsed = ref(false);
