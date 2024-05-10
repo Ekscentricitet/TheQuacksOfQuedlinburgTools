@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
-export const useGameVariantStore = defineStore('gameVariant', {
+export const useGameVariantStore = defineStore("gameVariant", {
   state: () => ({
     isVariantOne: false,
   }),

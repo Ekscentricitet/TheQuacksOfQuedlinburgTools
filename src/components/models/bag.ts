@@ -1,6 +1,6 @@
-import Chip from './chip/chip';
-import ChipQuantity from './chip/chipQuantity';
-import GameChips from 'components/gameChips';
+import Chip from "./chip/chip";
+import ChipQuantity from "./chip/chipQuantity";
+import GameChips from "components/gameChips";
 
 export default class Bag {
   public chipsData: ChipQuantity[];
@@ -13,7 +13,7 @@ export default class Bag {
 
   addOneWhite() {
     const cherry1Index = this.chipsData.findIndex(
-      (chip) => chip.name == 'cherry' && chip.value == 1
+      (chip) => chip.name == "cherry" && chip.value == 1
     );
     this.chipsData[cherry1Index].quantity += 1;
   }

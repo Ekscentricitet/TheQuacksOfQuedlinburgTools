@@ -1,4 +1,4 @@
-import Chip from './chip';
+import Chip from "./chip";
 
 export default class ChipQuantity extends Chip {
   public quantity: number;

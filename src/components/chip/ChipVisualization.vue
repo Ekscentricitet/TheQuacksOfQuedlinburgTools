@@ -8,26 +8,24 @@
       <slot />
     </div>
   </q-card>
-
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import Chip from '../models/chip/chip';
+import { computed } from "vue";
+import Chip from "../models/chip/chip";
 
-const emits = defineEmits(['clicked']);
+const emits = defineEmits(["clicked"]);
 
 const props = defineProps({
   chip: { type: Chip, required: true },
   vertical: { type: Boolean, default: true },
-  size: { default: '3vh' }
-})
+  size: { default: "3vh" },
+});
 
 const vertical = computed(() => {
-  if (props.vertical)
-    return 'column';
-  return 'row';
-})
+  if (props.vertical) return "column";
+  return "row";
+});
 </script>
 
 <style></style>

@@ -1,14 +1,28 @@
 <template>
   <div class="column items-center q-pa-sm">
     <div>
-      <q-btn v-if="!areChipsOver || isResetAllowed" @click="draw" class="q-ma-xs">Draw</q-btn>
+      <q-btn
+        v-if="!areChipsOver || isResetAllowed"
+        @click="draw"
+        class="q-ma-xs"
+        >Draw</q-btn
+      >
       <q-btn v-if="isResetAllowed" @click="reset" class="q-ma-xs">Reset</q-btn>
-      <q-btn :disabled="!flaskAvailable" @click="useFlask" icon="mdi-flask"></q-btn>
+      <q-btn
+        :disabled="!flaskAvailable"
+        @click="useFlask"
+        icon="mdi-flask"
+      ></q-btn>
     </div>
     <div class="row">
       <q-chip>Cherry Sum: {{ cherrySum }}</q-chip>
-      <ChipVisualization class="q-ma-sm" :chip="drawnChip as Chip" :vertical="true" v-for="drawnChip in drawnChips"
-        :key="drawnChip.name" />
+      <ChipVisualization
+        class="q-ma-sm"
+        :chip="drawnChip as Chip"
+        :vertical="true"
+        v-for="drawnChip in drawnChips"
+        :key="drawnChip.name"
+      />
     </div>
   </div>
   <q-dialog v-model="canChipsBeSelected" persistent>
@@ -20,41 +34,50 @@
       <q-card-section>
         <div class="column items-center text-center">
           <div>
-            You have drawn a blue chip! Click on a chip to place it next. Click on the cancel button if you don't like
-            anything.
+            You have drawn a blue chip! Click on a chip to place it next. Click
+            on the cancel button if you don't like anything.
           </div>
           <div class="row q-pa-md items-center">
-            <template v-for="chip, index in chipsToSelectFrom" :key="index">
-              <ChipVisualization :chip="chip as Chip" @clicked="handleChipSelected(chip as Chip)" class="q-ma-sm" />
+            <template v-for="(chip, index) in chipsToSelectFrom" :key="index">
+              <ChipVisualization
+                :chip="chip as Chip"
+                @clicked="handleChipSelected(chip as Chip)"
+                class="q-ma-sm"
+              />
             </template>
           </div>
         </div>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="I don't like anything..." color="primary" @click="handleChipSelected(null)" />
+        <q-btn
+          flat
+          label="I don't like anything..."
+          color="primary"
+          @click="handleChipSelected(null)"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
 
 <script setup lang="ts">
-import Chip from './models/chip/chip';
-import { computed, onMounted, ref } from 'vue';
-import { useQuasar } from 'quasar';
-import { useGameVariantStore } from 'src/stores/variantStore';
-import Bag from './models/bag';
-import ChipVisualization from './chip/ChipVisualization.vue';
+import Chip from "./models/chip/chip";
+import { computed, onMounted, ref } from "vue";
+import { useQuasar } from "quasar";
+import { useGameVariantStore } from "src/stores/variantStore";
+import Bag from "./models/bag";
+import ChipVisualization from "./chip/ChipVisualization.vue";
 
-const $q = useQuasar()
+const $q = useQuasar();
 const flaskUsed = ref(false);
 const playerBag = defineModel<Bag>({
-  required: true
+  required: true,
 });
 
 defineProps({
-  isResetAllowed: { type: Boolean, default: true }
-})
+  isResetAllowed: { type: Boolean, default: true },
+});
 
 const drawnChips = ref<Chip[]>([]);
 const areChipsOver = ref(false);
@@ -66,7 +89,7 @@ const chipsToSelectFrom = ref<Chip[]>([]);
 
 onMounted(() => {
   reset();
-})
+});
 
 function draw() {
   const drawnChip = playerBag.value.getRandomChip();
@@ -80,13 +103,12 @@ function draw() {
 }
 
 function placeChip(chip: Chip) {
-  if (isVariantOne.value && chip.name == 'mandrake')
-    returnLastCherry();
+  if (isVariantOne.value && chip.name == "mandrake") returnLastCherry();
 
   drawnChips.value.push(chip);
   playerBag.value.removeChipFromBag(chip);
 
-  if (isVariantOne.value && chip.name == 'skull') {
+  if (isVariantOne.value && chip.name == "skull") {
     console.log(chip);
     const selection = playerBag.value.drawRandomChips(chip.value);
 
@@ -126,17 +148,17 @@ function useFlask() {
 function returnLastCherry() {
   const lastChip = drawnChips.value.pop();
 
-  if (lastChip?.name != 'cherry' && lastChip != null) {
+  if (lastChip?.name != "cherry" && lastChip != null) {
     drawnChips.value.push(lastChip);
     return false;
   }
 
-  const cherryInBag = playerBag.value.chipsData
-    .find(chip => chip.name == 'cherry' && chip.value == lastChip?.value);
+  const cherryInBag = playerBag.value.chipsData.find(
+    (chip) => chip.name == "cherry" && chip.value == lastChip?.value
+  );
 
   console.log(cherryInBag);
-  if (cherryInBag == null)
-    return false;
+  if (cherryInBag == null) return false;
 
   cherryInBag.leftInBag += 1;
   return true;
@@ -144,25 +166,26 @@ function returnLastCherry() {
 
 function showBadFlaskUsageDialog() {
   $q.dialog({
-    title: 'Cannot use the flask',
-    message: 'The last drawn token is not a cherry.',
+    title: "Cannot use the flask",
+    message: "The last drawn token is not a cherry.",
     ok: {
-      label: 'Poor me...',
+      label: "Poor me...",
     },
-  })
+  });
 }
 
 const cherrySum = computed(() => {
-  const drawnCherries = drawnChips.value
-    .filter(chip => chip.name == 'cherry')
+  const drawnCherries = drawnChips.value.filter(
+    (chip) => chip.name == "cherry"
+  );
   let sum = 0;
-  drawnCherries.forEach(cherry => sum += cherry.value);
+  drawnCherries.forEach((cherry) => (sum += cherry.value));
   return sum;
-})
+});
 
 const flaskAvailable = computed(() => {
   return !flaskUsed.value && cherrySum.value > 7;
-})
+});
 </script>
 
 <style></style>

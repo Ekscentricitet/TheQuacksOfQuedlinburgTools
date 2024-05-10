@@ -1,4 +1,4 @@
-import ChipDto from './chipDto';
+import ChipDto from "./chipDto";
 
 export default class Chip {
   public startingNumber: number;
@@ -12,7 +12,7 @@ export default class Chip {
     public color: string,
     public value: number
   ) {
-    const numberIcon = 'mdi-numeric-' + value.toString() + '-circle-outline';
+    const numberIcon = "mdi-numeric-" + value.toString() + "-circle-outline";
     const startingNumber = this.getStartingNumber(name, value);
     this.startingNumber = startingNumber;
     this.numberIcon = numberIcon;
@@ -31,12 +31,12 @@ export default class Chip {
 
   private getStartingNumber(name: string, value: number) {
     let startingNumber = 0;
-    if (name == 'cherry')
+    if (name == "cherry")
       if (value == 1) startingNumber = 4;
       else if (value == 2) startingNumber = 2;
       else startingNumber = 1;
-    else if (name == 'spider' && value == 1) startingNumber = 1;
-    else if (name == 'pumpkin') startingNumber = 1;
+    else if (name == "spider" && value == 1) startingNumber = 1;
+    else if (name == "pumpkin") startingNumber = 1;
     return startingNumber;
   }
 }
