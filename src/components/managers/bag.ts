@@ -66,6 +66,11 @@ export default class Bag {
     if (chipQuantity) chipQuantity.leftInBag--;
   }
 
+  addChip(chip: Chip) {
+    const chipQuantity = this.getChipQuantity(chip);
+    if (chipQuantity) chipQuantity.leftInBag++;
+  }
+
   buyChip(chip: Chip) {
     const chipQuantity = this.getChipQuantity(chip);
 

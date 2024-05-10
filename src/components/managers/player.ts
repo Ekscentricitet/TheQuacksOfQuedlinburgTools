@@ -53,4 +53,10 @@ export default class Player {
     this.bag.reset();
     this.board.reset();
   }
+
+  returnLastChipToBag() {
+    const chip = this.board.removeLastChip();
+    if (!chip) return;
+    this.bag.addChip(chip);
+  }
 }

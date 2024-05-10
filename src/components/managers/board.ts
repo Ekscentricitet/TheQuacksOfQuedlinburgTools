@@ -22,4 +22,8 @@ export default class Board {
     drawnCherries.forEach((cherry) => (sum += cherry.value));
     return sum;
   }
+
+  removeLastChip() {
+    return this.drawnChips.pop();
+  }
 }

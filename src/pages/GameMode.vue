@@ -1,9 +1,11 @@
 <template>
   <div class="column items-center">
-    <div class="text-subtitle1 q-ma-sm">{{ roundText }}</div>
+    <div class="text-subtitle1 q-ma-sm">{{ roundText }}
+      <SpecialActionsDrawer v-if="isDrawPhase" v-model="player"></SpecialActionsDrawer>
+    </div>
     <q-btn color="primary" @click="confirmAdvancement">{{
       phaseButtonText
-    }}</q-btn>
+      }}</q-btn>
     <ShopComponent v-if="isBuyPhase" :round="round" v-model="player as unknown as Player" />
     <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round" v-model="player as unknown as Player" />
     <DrawComponent v-if="isDrawPhase" v-model="player as unknown as Player" :is-reset-allowed="false" />
@@ -19,6 +21,7 @@ import GameData from "src/components/managers/gameData";
 import ShopComponent from "src/components/ShopComponent.vue";
 import { useQuasar } from "quasar";
 import MultipleChipsView from "src/components/MultipleChipsView.vue";
+import SpecialActionsDrawer from "src/components/SpecialActionsDrawer.vue";
 
 const player = ref<Player>(new Player());
 const round = ref(0);
