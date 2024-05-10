@@ -1,4 +1,3 @@
-import { computed } from "vue";
 import Bag from "./bag";
 import Board from "./board";
 
@@ -14,26 +13,29 @@ export default class Player {
   }
 
   isFlaskUsed = false;
-  isFlaskAvailable = computed(() => {
+  isFlaskAvailable() {
     return !this.isFlaskUsed && this.board.getCherrySum() > 7;
-  });
+  }
 
   useFlask() {
     const isReturnSuccessful = this.returnLastCherry();
     if (!isReturnSuccessful) return false;
     this.isFlaskUsed = true;
+    return true;
   }
 
   returnLastCherry() {
     const lastChip = this.board.drawnChips.pop();
 
-    if (lastChip?.name != "cherry" && lastChip != null) {
+    if (!lastChip) return false;
+
+    if (lastChip?.name != "cherry") {
       this.board.drawnChips.push(lastChip);
       return false;
     }
 
     const cherryInBag = this.bag.chipsData.find(
-      (chip) => chip.name == "cherry" && chip.value == lastChip?.value
+      (chip) => chip.name == "cherry" && chip.value == lastChip.value
     );
 
     if (cherryInBag == null) return false;

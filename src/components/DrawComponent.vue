@@ -3,7 +3,7 @@
     <div>
       <q-btn v-if="!areChipsOver || isResetAllowed" @click="draw" class="q-ma-xs">Draw</q-btn>
       <q-btn v-if="isResetAllowed" @click="player.prepareForNewPhase()" class="q-ma-xs">Reset</q-btn>
-      <q-btn :disabled="!player.isFlaskAvailable" @click="useFlask" icon="mdi-flask"></q-btn>
+      <q-btn :disabled="!player.isFlaskAvailable()" @click="useFlask" icon="mdi-flask"></q-btn>
     </div>
     <div class="row">
       <q-chip>Cherry Sum: {{ player.board.getCherrySum() }}</q-chip>
