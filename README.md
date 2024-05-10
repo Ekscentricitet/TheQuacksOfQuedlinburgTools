@@ -41,8 +41,6 @@ Instead of putting your chips in the bag, leave them on the board. Use the app t
 
 ### Known limitations
 
-- Some cards ask you to do creative operations with your chips. You can either skip them them or play in free mode.
-- Most cards can be resolved in free mode, apart from some that let you remove a chip at some point.
 - If you restart the app you will lose your progress.
 - If you change the mode you will lose your progress.
 

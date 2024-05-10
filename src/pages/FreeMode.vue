@@ -7,7 +7,10 @@
           @decremented="player.bag.sellChip(slotProps.chip)" />
       </template>
     </ChipGrouper>
-    <MultipleChipsView v-model="player" />
+    <div class="row">
+      <MultipleChipsView v-model="player" />
+      <SpecialActionsDrawer v-model="player"></SpecialActionsDrawer>
+    </div>
     <DrawComponent v-model="player as unknown as Player"></DrawComponent>
   </div>
 </template>
@@ -20,6 +23,7 @@ import Player from "src/components/managers/player";
 import Bag from "src/components/managers/bag";
 import ChipIncrement from "src/components/chip/ChipIncrement.vue";
 import MultipleChipsView from "src/components/MultipleChipsView.vue";
+import SpecialActionsDrawer from "src/components/SpecialActionsDrawer.vue";
 
 const player = ref<Player>(new Player());
 </script>

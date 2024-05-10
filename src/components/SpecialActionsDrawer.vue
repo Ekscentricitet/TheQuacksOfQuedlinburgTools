@@ -1,5 +1,5 @@
 <template>
-  <q-btn flat @click="drawerOpen = !drawerOpen" round dense icon="mdi-lightning-bolt" />
+  <q-btn @click="drawerOpen = !drawerOpen" round dense icon="mdi-lightning-bolt" />
 
   <q-dialog v-model="drawerOpen" position="top">
     <q-card>
