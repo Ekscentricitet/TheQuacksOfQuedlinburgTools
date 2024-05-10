@@ -15,7 +15,7 @@ export default class Player {
 
   isFlaskUsed = false;
   isFlaskAvailable = computed(() => {
-    return !this.isFlaskUsed && this.board.cherrySum.value > 7;
+    return !this.isFlaskUsed && this.board.getCherrySum() > 7;
   });
 
   useFlask() {

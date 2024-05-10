@@ -6,7 +6,7 @@
       <q-btn :disabled="!player.isFlaskAvailable" @click="useFlask" icon="mdi-flask"></q-btn>
     </div>
     <div class="row">
-      <q-chip>Cherry Sum: {{ player.board.cherrySum }}</q-chip>
+      <q-chip>Cherry Sum: {{ player.board.getCherrySum() }}</q-chip>
       <ChipVisualization v-for="drawnChip in player.board.drawnChips" class="q-ma-sm" :chip="drawnChip" :vertical="true"
         :key="drawnChip.name" />
     </div>
