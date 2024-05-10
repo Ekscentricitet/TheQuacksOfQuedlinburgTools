@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import GameChips from "../gameChips";
-import Bag from "../models/bag";
+import GameChips from "../managers/gameChips";
+import Bag from "../managers/bag";
 
 const playerBag = defineModel<Bag>({ required: true });
 

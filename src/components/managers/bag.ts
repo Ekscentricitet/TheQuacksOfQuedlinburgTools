@@ -1,6 +1,6 @@
-import Chip from "./chip/chip";
-import ChipQuantity from "./chip/chipQuantity";
-import GameChips from "components/gameChips";
+import Chip from "../models/chip";
+import ChipQuantity from "../models/chipQuantity";
+import GameChips from "src/components/managers/gameChips";
 
 export default class Bag {
   public chipsData: ChipQuantity[];

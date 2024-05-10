@@ -5,22 +5,9 @@
     <q-btn color="primary" @click="confirmAdvancement">{{
       phaseButtonText
     }}</q-btn>
-    <ShopComponent
-      v-if="isBuyPhase"
-      :round="round"
-      v-model="player.bag as Bag"
-    />
-    <ShopComponent
-      v-if="isCardPhase"
-      :limit-buying="false"
-      :round="round"
-      v-model="player.bag as Bag"
-    />
-    <DrawComponent
-      v-if="isDrawPhase"
-      v-model="player.bag as Bag"
-      :is-reset-allowed="false"
-    >
+    <ShopComponent v-if="isBuyPhase" :round="round" v-model="player.bag as Bag" />
+    <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round" v-model="player.bag as Bag" />
+    <DrawComponent v-if="isDrawPhase" v-model="player.bag as Bag" :is-reset-allowed="false">
     </DrawComponent>
   </div>
 </template>
@@ -28,11 +15,11 @@
 <script setup lang="ts">
 import DrawComponent from "components/DrawComponent.vue";
 import { ref, onMounted, computed } from "vue";
-import Player from "src/components/models/player";
-import GameData from "src/components/gameData";
+import Player from "src/components/managers/player";
+import GameData from "src/components/managers/gameData";
 import ShopComponent from "src/components/ShopComponent.vue";
 import { useQuasar } from "quasar";
-import Bag from "src/components/models/bag";
+import Bag from "src/components/managers/bag";
 
 const player = ref<Player>(new Player());
 const round = ref(0);

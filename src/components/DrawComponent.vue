@@ -1,28 +1,14 @@
 <template>
   <div class="column items-center q-pa-sm">
     <div>
-      <q-btn
-        v-if="!areChipsOver || isResetAllowed"
-        @click="draw"
-        class="q-ma-xs"
-        >Draw</q-btn
-      >
+      <q-btn v-if="!areChipsOver || isResetAllowed" @click="draw" class="q-ma-xs">Draw</q-btn>
       <q-btn v-if="isResetAllowed" @click="reset" class="q-ma-xs">Reset</q-btn>
-      <q-btn
-        :disabled="!flaskAvailable"
-        @click="useFlask"
-        icon="mdi-flask"
-      ></q-btn>
+      <q-btn :disabled="!flaskAvailable" @click="useFlask" icon="mdi-flask"></q-btn>
     </div>
     <div class="row">
       <q-chip>Cherry Sum: {{ cherrySum }}</q-chip>
-      <ChipVisualization
-        class="q-ma-sm"
-        :chip="drawnChip as Chip"
-        :vertical="true"
-        v-for="drawnChip in drawnChips"
-        :key="drawnChip.name"
-      />
+      <ChipVisualization class="q-ma-sm" :chip="drawnChip as Chip" :vertical="true" v-for="drawnChip in drawnChips"
+        :key="drawnChip.name" />
     </div>
   </div>
   <q-dialog v-model="canChipsBeSelected" persistent>
@@ -39,34 +25,25 @@
           </div>
           <div class="row q-pa-md items-center">
             <template v-for="(chip, index) in chipsToSelectFrom" :key="index">
-              <ChipVisualization
-                :chip="chip as Chip"
-                @clicked="handleChipSelected(chip as Chip)"
-                class="q-ma-sm"
-              />
+              <ChipVisualization :chip="chip as Chip" @clicked="handleChipSelected(chip as Chip)" class="q-ma-sm" />
             </template>
           </div>
         </div>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn
-          flat
-          label="I don't like anything..."
-          color="primary"
-          @click="handleChipSelected(null)"
-        />
+        <q-btn flat label="I don't like anything..." color="primary" @click="handleChipSelected(null)" />
       </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
 
 <script setup lang="ts">
-import Chip from "./models/chip/chip";
+import Chip from "./models/chip";
 import { computed, onMounted, ref } from "vue";
 import { useQuasar } from "quasar";
 import { useGameVariantStore } from "src/stores/variantStore";
-import Bag from "./models/bag";
+import Bag from "./managers/bag";
 import ChipVisualization from "./chip/ChipVisualization.vue";
 
 const $q = useQuasar();
