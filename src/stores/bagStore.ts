@@ -12,6 +12,12 @@ export const useBagStore = defineStore("bag", () => {
   const chipsBoughtThisRound = useStorage("chipsBoughtThisRound", 0);
   const areChipsOver = useStorage("areChipsOver", false);
 
+  function resetState() {
+    chipsData.value = null;
+    chipsBoughtThisRound.value = null;
+    areChipsOver.value = null;
+  }
+
   function addOneWhite() {
     const cherry1Index = chipsData.value.findIndex(
       (chip) => chip.name == "cherry" && chip.value == 1
@@ -116,5 +122,6 @@ export const useBagStore = defineStore("bag", () => {
     buyChip,
     sellChip,
     getChipQuantity,
+    resetState,
   };
 });

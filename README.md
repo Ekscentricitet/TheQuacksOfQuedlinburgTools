@@ -41,8 +41,7 @@ Instead of putting your chips in the bag, leave them on the board. Use the app t
 
 ### Known limitations
 
-- If you restart the app you will lose your progress.
-- If you change the mode you will lose your progress.
+- Some edge cases might not be handled or might require manual interraction to resolve.
 
 ## Screenshots
 

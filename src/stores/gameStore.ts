@@ -1,11 +1,13 @@
 import { useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
+import { usePlayerStore } from "./playerStore";
 
 export const useGameStore = defineStore("gameStore", () => {
   const round = useStorage("round", 1);
   const isBuyPhase = useStorage("isBuyPhase", false);
   const isCardPhase = useStorage("isCardPhase", false);
   const isDrawPhase = useStorage("isDrawPhase", true);
+  const player = usePlayerStore();
 
   function advanceState() {
     if (isBuyPhase.value) {
@@ -20,5 +22,20 @@ export const useGameStore = defineStore("gameStore", () => {
     }
   }
 
-  return { round, isBuyPhase, isCardPhase, isDrawPhase, advanceState };
+  function resetGame() {
+    round.value = null;
+    isBuyPhase.value = null;
+    isCardPhase.value = null;
+    isDrawPhase.value = null;
+    player.resetState();
+  }
+
+  return {
+    round,
+    isBuyPhase,
+    isCardPhase,
+    isDrawPhase,
+    advanceState,
+    resetGame,
+  };
 });

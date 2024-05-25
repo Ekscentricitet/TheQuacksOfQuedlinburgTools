@@ -4,6 +4,11 @@ import Chip from "src/components/models/chip";
 
 export const useBoardStore = defineStore("board", () => {
   const drawnChips = useStorage("drawnChips", [] as Chip[]);
+
+  function resetState() {
+    reset();
+  }
+
   function placeChip(chip: Chip) {
     drawnChips.value.push(chip);
   }
@@ -32,5 +37,6 @@ export const useBoardStore = defineStore("board", () => {
     getCherrySum,
     removeLastChip,
     drawnChips,
+    resetState,
   };
 });

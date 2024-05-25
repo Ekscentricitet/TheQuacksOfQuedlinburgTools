@@ -25,6 +25,9 @@
         <q-item>
           <ThemeToggle></ThemeToggle>
         </q-item>
+        <q-item>
+          <q-btn @click="game.resetGame" label="Restore initial state" />
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -39,10 +42,12 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import VariantOneToggle from "components/toggles/VariantOneToggle.vue";
 import ThemeToggle from "components/toggles/ThemeToggle.vue";
+import { useGameStore } from "src/stores/gameStore";
 
 const drawerOpen = ref(false);
 const router = useRouter();
 const currentRoute = ref("/game-mode");
+const game = useGameStore();
 
 onMounted(() => {
   router.push("/game-mode");

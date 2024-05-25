@@ -58,6 +58,12 @@ export const usePlayerStore = defineStore("playerStore", () => {
     bag.addChip(chip as Chip);
   }
 
+  function resetState() {
+    isFlaskUsed.value = null;
+    bag.resetState();
+    board.resetState();
+  }
+
   return {
     bag,
     board,
@@ -67,5 +73,6 @@ export const usePlayerStore = defineStore("playerStore", () => {
     drawChip,
     prepareForNewPhase,
     returnLastChipToBag,
+    resetState,
   };
 });
