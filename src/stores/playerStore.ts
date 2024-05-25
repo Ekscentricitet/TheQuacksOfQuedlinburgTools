@@ -37,13 +37,13 @@ export const usePlayerStore = defineStore("playerStore", () => {
       return false;
     }
 
-    const cherryInBag = bag.chipsData.find(
+    const cherryData = bag.chipsData.find(
       (chip) => chip.name == "cherry" && chip.value == lastChip.value
     );
 
-    if (cherryInBag == null) return false;
+    if (cherryData == null) return false;
 
-    cherryInBag.leftInBag += 1;
+    cherryData.leftInBag += 1;
     return true;
   }
 
