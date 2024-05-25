@@ -20,21 +20,18 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, ref } from "vue";
-import Player from "./managers/player";
+import { ref } from "vue";
 import Chip from "./models/chip";
 import ChipVisualization from "./chip/ChipVisualization.vue";
+import { usePlayerStore } from "src/stores/playerStore";
 
-const player = defineModel({
-  type: Object as PropType<Player>,
-  required: true
-})
+const player = usePlayerStore();
 
 const areChipsShown = ref(false);
 const chipsToSelectFrom = ref<Chip[]>([]);
 
 function draw(quantity: number) {
-  chipsToSelectFrom.value = player.value.bag.viewRandomChips(quantity) ?? [];
+  chipsToSelectFrom.value = player.bag.viewRandomChips(quantity) ?? [];
   areChipsShown.value = true;
 }
 

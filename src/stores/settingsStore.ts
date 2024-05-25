@@ -1,20 +1,19 @@
 import { defineStore } from "pinia";
+import { useStorage } from "@vueuse/core";
+import { watch } from "vue";
+import { useQuasar } from "quasar";
 
-export const useSettingsStore = defineStore({
-  id: "settings",
-  state: () => ({
-    darkTheme: false,
-  }),
-  actions: {
-    setTheme(isDark: boolean) {
-      this.darkTheme = isDark;
-      localStorage.setItem("darkTheme", JSON.stringify(isDark));
-    },
-    loadTheme() {
-      this.darkTheme = JSON.parse(localStorage.getItem("darkTheme") ?? "false");
-    },
-    toggleTheme() {
-      this.setTheme(!this.darkTheme);
-    },
-  },
+export const useSettingsStore = defineStore("settings", () => {
+  const isDarkTheme = useStorage("isDarkTheme", false, localStorage, {
+    mergeDefaults: true,
+  });
+
+  const $q = useQuasar();
+
+  watch(isDarkTheme, () => {
+    console.log("here");
+    $q.dark.set(isDarkTheme.value);
+  });
+
+  return { isDarkTheme };
 });

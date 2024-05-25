@@ -19,17 +19,15 @@
     </q-card>
   </q-dialog>
 
-  <DrawAndPick v-if="drawAndPick" v-model="drawAndPick" :quantity="5" :player="player"></DrawAndPick>
+  <DrawAndPick v-if="drawAndPick" v-model="drawAndPick" :quantity="5"></DrawAndPick>
 </template>
 
 <script setup lang="ts">
-import { PropType, ref } from "vue";
-import Player from "./managers/player";
+import { ref } from "vue";
 import DrawAndPick from "./DrawAndPick.vue";
+import { usePlayerStore } from "src/stores/playerStore";
 
-const player = defineModel({
-  type: Object as PropType<Player>, required: true
-});
+const player = usePlayerStore();
 
 const drawerOpen = ref(false);
 const drawAndPick = ref(false);
@@ -42,12 +40,12 @@ const drawerItems = [
 ];
 
 function removeLastChip() {
-  player.value.returnLastChipToBag();
+  player.returnLastChipToBag();
   closeDrawer()
 }
 
 function reset() {
-  player.value.prepareForNewPhase();
+  player.prepareForNewPhase();
   closeDrawer()
 }
 

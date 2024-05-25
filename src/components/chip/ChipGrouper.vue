@@ -10,10 +10,10 @@
 </template>
 
 <script setup lang="ts">
+import { useBagStore } from "src/stores/bagStore";
 import GameChips from "../managers/gameChips";
-import Bag from "../managers/bag";
+import ChipQuantity from "../models/chipQuantity";
 
-const playerBag = defineModel<Bag>({ required: true });
-
-const groupedItems = GameChips.groupChips(playerBag.value.chipsData);
+const playerBag = useBagStore();
+const groupedItems = GameChips.groupChips(playerBag.chipsData as ChipQuantity[]);
 </script>

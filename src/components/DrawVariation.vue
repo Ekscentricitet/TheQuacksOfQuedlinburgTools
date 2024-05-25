@@ -29,19 +29,18 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Chip from "./models/chip";
-import Player from "./managers/player";
 import ChipVisualization from "./chip/ChipVisualization.vue";
-const player = defineModel<Player>({
-  required: true,
-});
+import { usePlayerStore } from "src/stores/playerStore";
+
+const player = usePlayerStore();
 
 const canChipsBeSelected = ref(false);
 const chipsToSelectFrom = ref<Chip[]>([]);
 
 function handleSpecialCases(chip: Chip) {
-  if (chip.name == "mandrake") player.value.returnLastCherry();
+  if (chip.name == "mandrake") player.returnLastCherry();
   else if (chip.name == "skull") {
-    const selection = player.value.bag.viewRandomChips(chip.value);
+    const selection = player.bag.viewRandomChips(chip.value);
 
     if (selection == undefined)
       return;
@@ -54,8 +53,8 @@ function handleSpecialCases(chip: Chip) {
 function handleChipSelected(chip: Chip | null) {
   canChipsBeSelected.value = false;
   if (chip != null) {
-    player.value.bag.removeChip(chip);
-    player.value.board.placeChip(chip);
+    player.bag.removeChip(chip);
+    player.board.placeChip(chip);
     handleSpecialCases(chip);
   }
 }

@@ -1,38 +1,33 @@
 <template>
   <div class="column items-center">
     <div class="text-subtitle1 q-ma-sm">{{ roundText }}
-      <SpecialActionsDrawer v-if="isDrawPhase" v-model="player"></SpecialActionsDrawer>
+      <SpecialActionsDrawer v-if="game.isDrawPhase"></SpecialActionsDrawer>
     </div>
     <q-btn color="primary" @click="confirmAdvancement">{{
       phaseButtonText
-      }}</q-btn>
-    <ShopComponent v-if="isBuyPhase" :round="round" v-model="player as unknown as Player" />
-    <ShopComponent v-if="isCardPhase" :limit-buying="false" :round="round" v-model="player as unknown as Player" />
-    <DrawComponent v-if="isDrawPhase" v-model="player as unknown as Player" :is-reset-allowed="false" />
-    <MultipleChipsView v-if="isCardPhase" v-model="player" />
+    }}</q-btn>
+    <ShopComponent v-if="game.isBuyPhase" />
+    <ShopComponent v-if="game.isCardPhase" :limit-buying="false" />
+    <DrawComponent v-if="game.isDrawPhase" :is-reset-allowed="false" />
+    <MultipleChipsView v-if="game.isCardPhase" />
   </div>
 </template>
 
 <script setup lang="ts">
 import DrawComponent from "components/DrawComponent.vue";
-import { ref, onMounted, computed } from "vue";
-import Player from "src/components/managers/player";
-import GameData from "src/components/managers/gameData";
+import { computed } from "vue";
 import ShopComponent from "src/components/ShopComponent.vue";
 import { useQuasar } from "quasar";
 import MultipleChipsView from "src/components/MultipleChipsView.vue";
 import SpecialActionsDrawer from "src/components/SpecialActionsDrawer.vue";
+import GameData from "src/components/managers/gameData";
+import { useGameStore } from "src/stores/gameStore";
+import { usePlayerStore } from "src/stores/playerStore";
 
-const player = ref<Player>(new Player());
-const round = ref(0);
-const isBuyPhase = ref(false);
-const isCardPhase = ref(false);
-const isDrawPhase = ref(true);
 const $q = useQuasar();
 
-onMounted(() => {
-  round.value++;
-});
+const game = useGameStore();
+const player = usePlayerStore();
 
 function confirmAdvancement() {
   $q.dialog({
@@ -52,36 +47,26 @@ function confirmAdvancement() {
 }
 
 function changeRound() {
-  if (round.value == GameData.lastRound) return;
+  if (game.round == GameData.lastRound) return;
+  game.advanceState();
 
-  if (isBuyPhase.value) {
-    isBuyPhase.value = false;
-    isCardPhase.value = true;
-  } else if (isCardPhase.value) {
-    isCardPhase.value = false;
-    isDrawPhase.value = true;
-  } else {
-    isDrawPhase.value = false;
-    isBuyPhase.value = true;
-  }
-
-  if (isCardPhase.value) {
-    round.value++;
-    if (round.value == GameData.addOneWhiteRound)
-      player.value.bag.addOneWhite();
+  if (game.isCardPhase) {
+    game.round++;
+    if (game.round == GameData.addOneWhiteRound)
+      player.bag.addOneWhite();
   }
 }
 
 const phaseButtonText = computed(() => {
-  if (isBuyPhase.value) return "Resolve the die and cards";
-  if (isCardPhase.value) return "Draw Phase";
+  if (game.isBuyPhase) return "Resolve the die and cards";
+  if (game.isCardPhase) return "Draw Phase";
   return "Buy chips";
 });
 
 const roundText = computed(() => {
-  if (isBuyPhase.value) return "Buy up to two chips from different colors.";
-  if (isCardPhase.value) return "Resolve cards and die effects";
-  return "Round: " + round.value;
+  if (game.isBuyPhase) return "Buy up to two chips from different colors.";
+  if (game.isCardPhase) return "Resolve cards and die effects";
+  return "Round: " + game.round;
 });
 </script>
 

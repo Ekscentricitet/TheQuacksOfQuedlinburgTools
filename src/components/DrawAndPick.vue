@@ -23,21 +23,17 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, onMounted, ref } from "vue";
-import Player from "./managers/player";
+import { onMounted, ref } from "vue";
 import Chip from "./models/chip";
 import ChipVisualization from "./chip/ChipVisualization.vue";
+import { usePlayerStore } from "src/stores/playerStore";
 
 const props = defineProps({
   quantity: { type: Number, required: true },
-  player: {
-    type: Object as PropType<Player>,
-    required: true,
-  }
 })
 
+const player = usePlayerStore();
 const canChipsBeSelected = defineModel({ type: Boolean, required: true });
-
 const chipsToSelectFrom = ref<Chip[]>([]);
 
 onMounted(() => {
@@ -45,7 +41,7 @@ onMounted(() => {
 })
 
 function drawAndPick() {
-  const selection = props.player.bag.viewRandomChips(props.quantity);
+  const selection = player.bag.viewRandomChips(props.quantity);
 
   if (selection == undefined)
     return;
@@ -57,8 +53,8 @@ function drawAndPick() {
 function handleChipSelected(chip: Chip | null) {
   canChipsBeSelected.value = false;
   if (chip != null) {
-    props.player.bag.removeChip(chip);
-    props.player.board.placeChip(chip);
+    player.bag.removeChip(chip);
+    player.board.placeChip(chip);
   }
 }
 </script>
