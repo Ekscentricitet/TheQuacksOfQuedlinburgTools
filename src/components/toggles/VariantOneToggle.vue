@@ -1,9 +1,5 @@
 <template>
-  <q-toggle
-    v-model="gameVariantStore.isVariantOne"
-    @input="gameVariantStore.toggle"
-    label="Play Variant I"
-  />
+  <q-toggle v-model="gameVariantStore.isVariantOne" @input="gameVariantStore.toggle" label="Play Variant I" />
 </template>
 
 <script setup lang="ts">

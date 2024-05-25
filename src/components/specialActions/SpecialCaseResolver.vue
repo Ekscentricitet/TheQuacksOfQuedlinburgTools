@@ -2,11 +2,15 @@
   <q-dialog v-model="canChipsBeSelected" persistent>
     <q-card>
       <q-card-section class="text-h6">
-        <div>Pick a chip</div>
+        <div>Choose the next chip</div>
       </q-card-section>
 
       <q-card-section>
         <div class="column items-center text-center">
+          <div>
+            You have drawn a blue chip! Click on a chip to place it next. Click
+            on the cancel button if you don't like anything.
+          </div>
           <div class="row q-pa-md items-center">
             <template v-for="(chip, index) in chipsToSelectFrom as Chip[]" :key="index">
               <ChipVisualization :chip="chip" @clicked="handleChipSelected(chip as Chip)" class="q-ma-sm" />
@@ -23,31 +27,26 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import Chip from "./models/chip";
-import ChipVisualization from "./chip/ChipVisualization.vue";
+import { ref } from "vue";
+import Chip from "src/models/chip";
+import ChipVisualization from "src/components/chip/ChipVisualization.vue";
 import { usePlayerStore } from "src/stores/playerStore";
 
-const props = defineProps({
-  quantity: { type: Number, required: true },
-})
-
 const player = usePlayerStore();
-const canChipsBeSelected = defineModel({ type: Boolean, required: true });
+
+const canChipsBeSelected = ref(false);
 const chipsToSelectFrom = ref<Chip[]>([]);
 
-onMounted(() => {
-  drawAndPick()
-})
+function handleSpecialCases(chip: Chip) {
+  if (chip.name == "mandrake") player.returnLastCherry();
+  else if (chip.name == "skull") {
+    const selection = player.bag.viewRandomChips(chip.value);
 
-function drawAndPick() {
-  const selection = player.bag.viewRandomChips(props.quantity);
+    if (selection == undefined) return;
 
-  if (selection == undefined)
-    return;
-
-  chipsToSelectFrom.value = selection;
-  canChipsBeSelected.value = true;
+    chipsToSelectFrom.value = selection;
+    canChipsBeSelected.value = true;
+  }
 }
 
 function handleChipSelected(chip: Chip | null) {
@@ -55,6 +54,11 @@ function handleChipSelected(chip: Chip | null) {
   if (chip != null) {
     player.bag.removeChip(chip);
     player.board.placeChip(chip);
+    handleSpecialCases(chip);
   }
 }
+
+defineExpose({
+  handleSpecialCases,
+});
 </script>

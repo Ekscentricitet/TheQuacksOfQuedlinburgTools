@@ -11,7 +11,11 @@
     <q-drawer v-model="drawerOpen">
       <q-list>
         <template v-for="item in drawerItems" :key="item.id">
-          <q-item clickable :active="currentRoute == item.route" @click="navigateToPage(item.route)">
+          <q-item
+            clickable
+            :active="currentRoute == item.route"
+            @click="navigateToPage(item.route)"
+          >
             <q-item-section avatar>
               <q-icon :name="item.icon" />
             </q-item-section>

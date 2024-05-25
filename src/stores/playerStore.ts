@@ -3,10 +3,9 @@ import { useStorage } from "@vueuse/core";
 import { computed } from "vue";
 import { useBagStore } from "./bagStore";
 import { useBoardStore } from "./boardStore";
-import Chip from "src/components/models/chip";
+import Chip from "src/models/chip";
 
 export const usePlayerStore = defineStore("playerStore", () => {
-  const color = useStorage("playerColor", "Blue");
   const isFlaskUsed = useStorage("isFlaskUsed", false);
   const bag = useBagStore();
   const board = useBoardStore();
@@ -14,6 +13,12 @@ export const usePlayerStore = defineStore("playerStore", () => {
   const isFlaskAvailable = computed(
     () => !isFlaskUsed.value && board.getCherrySum() > 7
   );
+
+  function resetState() {
+    isFlaskUsed.value = false;
+    bag.resetState();
+    board.resetState();
+  }
 
   function useFlask() {
     const isReturnSuccessful = returnLastCherry();
@@ -56,12 +61,6 @@ export const usePlayerStore = defineStore("playerStore", () => {
     const chip = board.removeLastChip();
     if (!chip) return;
     bag.addChip(chip as Chip);
-  }
-
-  function resetState() {
-    isFlaskUsed.value = null;
-    bag.resetState();
-    board.resetState();
   }
 
   return {

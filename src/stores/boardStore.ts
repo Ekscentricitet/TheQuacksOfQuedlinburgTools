@@ -1,6 +1,6 @@
 import { useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
-import Chip from "src/components/models/chip";
+import Chip from "src/models/chip";
 
 export const useBoardStore = defineStore("board", () => {
   const drawnChips = useStorage("drawnChips", [] as Chip[]);

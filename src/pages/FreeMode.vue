@@ -8,7 +8,7 @@
       </template>
     </ChipGrouper>
     <div class="row">
-      <MultipleChipsView v-model="player" />
+      <MultipleView v-model="player" />
       <SpecialActionsDrawer v-model="player"></SpecialActionsDrawer>
     </div>
     <DrawComponent></DrawComponent>
@@ -16,12 +16,12 @@
 </template>
 
 <script setup lang="ts">
-import DrawComponent from "components/DrawComponent.vue";
 import ChipGrouper from "src/components/chip/ChipGrouper.vue";
 import ChipIncrement from "src/components/chip/ChipIncrement.vue";
-import MultipleChipsView from "src/components/MultipleChipsView.vue";
-import SpecialActionsDrawer from "src/components/SpecialActionsDrawer.vue";
+import MultipleView from "src/components/specialActions/MultipleView.vue";
+import SpecialActionsDrawer from "src/components/specialActions/SpecialActionsDrawer.vue";
 import { usePlayerStore } from "src/stores/playerStore";
+import DrawComponent from "src/components/DrawComponent.vue";
 
 const player = usePlayerStore();
 </script>

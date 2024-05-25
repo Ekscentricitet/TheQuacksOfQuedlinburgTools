@@ -11,17 +11,17 @@
         :vertical="true" :key="drawnChip.name" />
     </div>
   </div>
-  <DrawVariation ref="variant" v-if="isVariantOne"></DrawVariation>
+  <SpecialCaseResolver ref="variant" v-if="isVariantOne"></SpecialCaseResolver>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import { useQuasar } from "quasar";
 import { useGameVariantStore } from "src/stores/variantStore";
-import ChipVisualization from "./chip/ChipVisualization.vue";
-import DrawVariation from "./DrawVariation.vue";
+import SpecialCaseResolver from "src/components/specialActions/SpecialCaseResolver.vue";
+import ChipVisualization from "src/components/chip/ChipVisualization.vue";
 import { usePlayerStore } from "src/stores/playerStore";
-import Chip from "./models/chip";
+import Chip from "src/models/chip";
 
 const $q = useQuasar();
 const player = usePlayerStore();
@@ -50,8 +50,7 @@ function draw() {
 
 function useFlask() {
   const wasFlaskUsed = player.useFlask();
-  if (!wasFlaskUsed)
-    showBadFlaskUsageDialog();
+  if (!wasFlaskUsed) showBadFlaskUsageDialog();
 }
 
 function showBadFlaskUsageDialog() {

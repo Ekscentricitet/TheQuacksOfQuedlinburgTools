@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
-import GameChips from "src/components/managers/gameChips";
-import Chip from "src/components/models/chip";
-import ChipQuantity from "src/components/models/chipQuantity";
+import GameChips from "src/managers/gameChips";
+import Chip from "src/models/chip";
+import ChipQuantity from "src/models/chipQuantity";
 
 export const useBagStore = defineStore("bag", () => {
   const chipsData = useStorage(
@@ -13,9 +14,9 @@ export const useBagStore = defineStore("bag", () => {
   const areChipsOver = useStorage("areChipsOver", false);
 
   function resetState() {
-    chipsData.value = null;
-    chipsBoughtThisRound.value = null;
-    areChipsOver.value = null;
+    chipsData.value = [] as ChipQuantity[];
+    chipsBoughtThisRound.value = 0;
+    areChipsOver.value = false;
   }
 
   function addOneWhite() {
@@ -88,7 +89,7 @@ export const useBagStore = defineStore("bag", () => {
     chipQuantity.leftInBag++;
     chipQuantity.quantity++;
     chipQuantity.boughtThisRound = true;
-    chipsBoughtThisRound.value++;
+    chipsBoughtThisRound.value!++;
   }
 
   function sellChip(chip: Chip) {
@@ -99,7 +100,7 @@ export const useBagStore = defineStore("bag", () => {
     chipQuantity.leftInBag--;
     chipQuantity.quantity--;
     chipQuantity.boughtThisRound = false;
-    chipsBoughtThisRound.value--;
+    chipsBoughtThisRound.value!--;
   }
 
   function getChipQuantity(chip: Chip) {

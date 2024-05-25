@@ -21,8 +21,8 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Chip from "./models/chip";
-import ChipVisualization from "./chip/ChipVisualization.vue";
+import Chip from "../../models/chip";
+import ChipVisualization from "src/components/chip/ChipVisualization.vue";
 import { usePlayerStore } from "src/stores/playerStore";
 
 const player = usePlayerStore();
@@ -34,5 +34,4 @@ function draw(quantity: number) {
   chipsToSelectFrom.value = player.bag.viewRandomChips(quantity) ?? [];
   areChipsShown.value = true;
 }
-
 </script>

@@ -11,9 +11,11 @@
 
 <script setup lang="ts">
 import { useBagStore } from "src/stores/bagStore";
-import GameChips from "../managers/gameChips";
-import ChipQuantity from "../models/chipQuantity";
+import GameChips from "../../managers/gameChips";
+import ChipQuantity from "../../models/chipQuantity";
 
 const playerBag = useBagStore();
-const groupedItems = GameChips.groupChips(playerBag.chipsData as ChipQuantity[]);
+const groupedItems = GameChips.groupChips(
+  playerBag.chipsData as ChipQuantity[]
+);
 </script>
